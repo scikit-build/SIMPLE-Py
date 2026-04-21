@@ -25,6 +25,8 @@ jobs:
 
       - name: Build the book
         run: uvx jupyter-book build --html
+        env:
+          BASE_URL: /SIMPLE-Py
 
       - uses: actions/upload-artifact@v7
         with:
