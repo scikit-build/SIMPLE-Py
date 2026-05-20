@@ -1,6 +1,6 @@
 /* @theme simplepy */
 
-@import 'default';
+@import "default";
 
 .columns {
   display: grid;

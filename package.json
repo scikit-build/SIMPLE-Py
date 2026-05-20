@@ -1,0 +1,15 @@
+{
+  "name": "simple-py",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build-book": "myst build --html",
+    "build-slides": "mkdir -p _build/html/slides && marp slides/1_01_setup.md --html -o _build/html/slides/1_01_setup.html",
+    "build": "bun run build-book && bun run build-slides",
+    "clean": "rm -rf _build"
+  },
+  "dependencies": {
+    "mystmd": "^1.0",
+    "@marp-team/marp-cli": "^4.0"
+  }
+}
