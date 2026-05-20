@@ -35,5 +35,5 @@ prek -a
 
 ## Making changes
 
-- **Book content**: Edit the Markdown files in `content/`. The table of contents is defined in `myst.yml`. Run `npx mystmd init --write-toc` to regenerate it.
+- **Book content**: Edit the Markdown files in `content/`. The table of contents is defined in `myst.yml`.
 - **Slides**: Edit the Markdown files in `slides/`. Slides use [Marp](https://marp.app/) format with `marp: true` frontmatter.
