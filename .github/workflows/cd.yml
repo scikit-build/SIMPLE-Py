@@ -21,16 +21,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: astral-sh/setup-uv@v8.1.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Build the book
-        run: uvx jupyter-book build --html
+        run: npx mystmd@latest build --html
         env:
           BASE_URL: /SIMPLE-Py
 
       - uses: actions/upload-artifact@v7
         with:
-          name: jupyterbook
+          name: book
           path: _build/html/*
 
   build-slides:
@@ -59,7 +61,7 @@ jobs:
 
       - uses: actions/download-artifact@v8
         with:
-          name: jupyterbook
+          name: book
           path: public
 
       - uses: actions/download-artifact@v8
