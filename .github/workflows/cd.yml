@@ -21,10 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
       - name: Build the book
         run: npx mystmd@latest build --html
         env:
