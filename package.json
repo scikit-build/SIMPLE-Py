@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build-book": "myst build --html",
-    "build-slides": "mkdir -p _build/html/slides && marp --input-dir slides --html -o _build/html/slides/",
+    "build-slides": "mkdir -p _build/html/slides && marp --input-dir slides --html -o _build/html/slides/ && rsync -am --include='*/' --include='*.jpg' --include='*.jpeg' --include='*.png' --include='*.gif' --include='*.svg' --exclude='*' content/ _build/html/content/",
     "build": "bun run build-book && bun run build-slides",
     "serve": "myst start",
     "clean": "rm -rf _build"
