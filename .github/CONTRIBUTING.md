@@ -6,13 +6,19 @@ Contributions are welcome! This project is a workshop book built with [MyST](htt
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (for building the book and slides)
+- [bun](https://bun.sh/) (for building the book and slides)
 - [prek](https://github.com/j178/prek) (for linting)
+
+Install dependencies with:
+
+```bash
+bun install
+```
 
 ## Building the book
 
 ```bash
-npx mystmd build --html
+bun run build-book
 ```
 
 The output is placed in `_build/html/`.
@@ -20,10 +26,12 @@ The output is placed in `_build/html/`.
 ## Building the slides
 
 ```bash
-npx @marp-team/marp-cli@latest --input-dir slides --output _output
+bun run build-slides
 ```
 
-The output is placed in `_output/`.
+The output is placed in `_build/html/slides/`.
+
+To build both at once, run `bun run build`.
 
 ## Linting
 
