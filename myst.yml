@@ -46,5 +46,7 @@ site:
   template: book-theme
   options:
     logo_text: SIMPLE-Py
-    # favicon: favicon.ico
+    # Vendored so the build never fetches mystmd.org's default favicon, which
+    # fails intermittently in CI (ERR_STREAM_PREMATURE_CLOSE).
+    favicon: favicon.ico
     # logo: site_logo.png
