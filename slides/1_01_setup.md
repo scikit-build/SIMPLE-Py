@@ -74,7 +74,7 @@ System or user installs sound nice, but:
 
 ## Virtual environment structure
 
-```
+```text
 .venv
 ├── .gitignore
 ├── CACHEDIR.TAG

@@ -14,7 +14,7 @@ bun run build         # build book + slides into _build/html/ (build-book then b
 bun run build-book    # myst build --html
 bun run build-slides  # marp slides/ -> _build/html/slides/
 bun run clean         # rm -rf _build
-prek -a --quiet       # lint/format everything (ruff-format, blacken-docs, prettier, codespell, etc.)
+prek -a --quiet       # lint/format everything (ruff-format, blacken-docs, rumdl, prettier, codespell, etc.)
 ```
 
 ## Structure

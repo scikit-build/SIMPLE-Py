@@ -33,10 +33,16 @@ repos:
     hooks:
       - id: nbstripout
 
+  - repo: https://github.com/rvben/rumdl-pre-commit
+    rev: "5c0245ee573b1dea03e8cdc5bd41bd449ea8962a" # frozen: v0.2.27
+    hooks:
+      - id: rumdl-fmt
+
   - repo: https://github.com/rbubley/mirrors-prettier
     rev: "515f543f5718ebfd6ce22e16708bb32c68ff96e1" # frozen: v3.8.3
     hooks:
       - id: prettier
+        exclude: '\.md$' # Markdown is handled by rumdl
 
   - repo: https://github.com/codespell-project/codespell
     rev: "2ccb47ff45ad361a21071a7eedda4c37e6ae8c5a" # frozen: v2.4.2

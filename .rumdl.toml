@@ -1,0 +1,12 @@
+[global]
+# This is prose-heavy content, not source-tree Markdown.
+disable = [
+    "MD013", # Line length — prose and code samples are not hard-wrapped
+    "MD033", # Inline HTML — Marp slides use <div class="columns"> etc.
+    "MD026", # Trailing punctuation in headings — slide headings intentionally end in ":"
+    "MD076", # Blank line between list items — false-positives inside mixed-indent MyST :::{card}
+]
+
+# content/ is MyST (directives, roles); slides/ are Marp (standard Markdown + HTML).
+[per-file-flavor]
+"content/**/*.md" = "myst"

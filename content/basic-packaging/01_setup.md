@@ -65,6 +65,7 @@ When Python runs, it checks to see if there's a `pyvenv.cfg` above it. If there 
 it is in a virtual environment (venv) and reads site-packages from there. There are two ways to use it:
 
 ::::{tab-set}
+
 :::{tab-item} Direct usage
 
 ```bash
@@ -72,6 +73,7 @@ it is in a virtual environment (venv) and reads site-packages from there. There 
 ```
 
 :::
+
 :::{tab-item} Activation
 
 ```bash
@@ -81,6 +83,7 @@ deactivate
 ```
 
 :::
+
 ::::
 
 > [!WARNING]
@@ -95,7 +98,9 @@ The `.` at the start (most shells support `source` as well) allows the activatio
 To create one of these, you have several options:
 
 :::::{card} Create a virtual environment
+
 ::::{tab-set}
+
 :::{tab-item} venv
 
 ```bash
@@ -105,6 +110,7 @@ python3 -m venv .venv
 This is the slowest, but it's built in![^1]
 
 :::
+
 :::{tab-item} virtualenv
 
 ```bash
@@ -114,6 +120,7 @@ virtualenv .venv
 This is faster than `venv`, has better default installs inside, but does require installation.
 
 :::
+
 :::{tab-item} uv
 
 ```bash
@@ -123,7 +130,9 @@ uv venv
 This is really fast, though it's completely empty (no pip). And it defaults to `.venv`. Also requires installation (a single Rust binary or pip install).
 
 :::
+
 ::::
+
 :::::
 
 We will be using `uv`, which can do a lot of this for us.
@@ -137,7 +146,9 @@ Now that you know how to make virtual environments, how should you install stuff
 But a virtual environment is meant to be expendable. You should be able to delete it and recreate it any time. So instead of manually installing, you want to list packages in some format:
 
 :::::{grid} 1 1 2 2
+
 ::::{grid-item}
+
 :::{card} Project (app)
 These are for making a virtual env. They don't affect libraries.
 
@@ -148,8 +159,11 @@ These are for making a virtual env. They don't affect libraries.
 - **Lock file**: Versions are pinned exactly
 - **dependency-groups**: Multiple collections of packages
   :::
+
   ::::
+
   ::::{grid-item}
+
   :::{card} Package (library)
   These are for libraries.
 
@@ -164,7 +178,9 @@ Most libraries also have developer environments, which follows the "Project
 > for these too; this is due to it pre-dating `dependency-groups`.
 
 :::
+
 ::::
+
 :::::
 
 Locked dependencies means that every dependency is fully specified, ideally
@@ -296,6 +312,7 @@ if __name__ == "__main__":
 When you run it:
 
 ::::{tab-set}
+
 :::{tab-item} uv
 
 ```bash
@@ -303,6 +320,7 @@ uv run single.py
 ```
 
 :::
+
 :::{tab-item} pipx
 
 ```bash
@@ -310,6 +328,7 @@ pipx run single.py
 ```
 
 :::
+
 ::::
 
 The dependencies will be downloaded into a temporary venv.
