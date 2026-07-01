@@ -4,6 +4,8 @@ authors: [Cristian Le]
 
 # Shipping to distros
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/5_04_distros>`
+
 Is packaging to distros still valuable these days?
 Yes, both to the ecosystem in general and your own project.[^1]
 
