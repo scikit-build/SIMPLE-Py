@@ -7,6 +7,13 @@ disable = [
     "MD076", # Blank line between list items — false-positives inside mixed-indent MyST :::{card}
 ]
 
-# content/ is MyST (directives, roles); slides/ are Marp (standard Markdown + HTML).
+# Marp treats `---` as a slide separator, so each deck is many "documents" glued
+# together: repeated/level-jumping per-slide `#` headings, background images with no
+# alt text, mixed list markers. Those clash with MD001/MD004/MD024/MD025/MD045, and
+# `rumdl fmt` rewrites them (e.g. demoting `#` to `##`) regardless of per-file-ignores,
+# which changes how slides render. Exclude the decks entirely instead.
+exclude = ["slides"]
+
+# content/ is MyST (directives, roles).
 [per-file-flavor]
 "content/**/*.md" = "myst"

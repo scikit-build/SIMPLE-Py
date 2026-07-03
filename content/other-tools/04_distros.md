@@ -9,9 +9,9 @@ authors: [Cristian Le]
 Is packaging to distros still valuable these days?
 Yes, both to the ecosystem in general and your own project.[^1]
 
-[^1]: https://packaging.lecris.dev/
+[^1]: <https://packaging.lecris.dev/>
 
-### Why get involved?
+## Why get involved?
 
 - You find what is currently used across the ecosystem
 - You get reverse-dependency tests
