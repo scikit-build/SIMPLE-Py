@@ -10,7 +10,7 @@
     "clean": "rm -rf _build"
   },
   "dependencies": {
-    "mystmd": "^1.0",
-    "@marp-team/marp-cli": "^4.0"
+    "mystmd": "^1.10.1",
+    "@marp-team/marp-cli": "^4.4.1"
   }
 }
