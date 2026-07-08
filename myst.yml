@@ -15,8 +15,8 @@ project:
         - file: content/basic-packaging/01_setup.md
         - file: content/basic-packaging/02_tooling.md
         - file: content/basic-packaging/03_package.md
-        - file: content/basic-packaging/03_publishing_ci.md
         - file: content/basic-packaging/04_sp_guide.md
+        - file: content/basic-packaging/05_publishing_ci.md
     - title: Compiled
       children:
         - file: content/compiled/01_package.md
