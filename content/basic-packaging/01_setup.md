@@ -493,3 +493,79 @@ uv run pytest
 ```
 
 :::
+
+## Editable installs
+
+We will cover editable installs in detail, but it's something worth calling out.
+When you install a package for development (including via `uv run`), you do an
+editable install, which is a bit different than a normal install. It creates
+a special wheel that simply exists in order to put special code into site-packages
+to enable Python to find your files. Pretty much everything about this is left up
+to the build backend. Some common mechanisms, compared to a classic install, are:
+
+::::{tab-set}
+
+:::{tab-item} Standard
+
+```text
+site-packages
+├── example                    # Your package, copied out of the wheel
+│   └── __init__.py
+└── example-0.1.0.dist-info    # Metadata (version, RECORD of files, ...)
+    ├── METADATA
+    ├── RECORD
+    └── ...
+```
+
+Your files are copied into site-packages; editing your source does nothing
+until you reinstall.
+
+:::
+
+:::{tab-item} Editable (path file)
+
+```text
+site-packages
+├── _editable_impl_example.pth  # One line: the path to your project's src/
+└── example-0.1.0.dist-info
+    └── ...
+```
+
+At startup, Python adds every path listed in a `.pth` file to `sys.path`, so
+your source directory is importable directly. This is what hatchling does (and
+setuptools with a src layout, named `__editable__.example-0.1.0.pth` instead).
+
+:::
+
+:::{tab-item} Editable (import hook)
+
+```text
+site-packages
+├── _editable_example-0.1.0.pth        # Runs .install() on the finder below
+├── _editable_example_0_1_0_finder.py  # Maps "example" to your source
+└── example-0.1.0.dist-info
+    └── ...
+```
+
+A line in a `.pth` file starting with `import` is executed instead, which is
+(ab)used here to register a custom import finder that maps just your package
+to its source.
+
+:::
+
+:::{tab-item} Python 3.15+ (import hook)
+
+```text
+site-packages
+├── _editable_example-0.1.0.start      # Runs an entry-point on the finder below
+├── _editable_example_0_1_0_finder.py  # Maps "example" to your source
+└── example-0.1.0.dist-info
+    └── ...
+```
+
+A line in a `.start` file defines an entry point to run, which is used here to
+register a custom import finder that maps just your package to its source.
+
+:::
+
+::::
