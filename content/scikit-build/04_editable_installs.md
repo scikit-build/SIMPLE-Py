@@ -4,6 +4,8 @@ authors: [Cristian Le]
 
 # Editable installs
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/4_04_editable_installs>`
+
 ## What it means for Python
 
 You edit the project's Python files and the changes are reflected "immediately" in the python interpreter.
