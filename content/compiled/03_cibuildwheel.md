@@ -1,6 +1,6 @@
 # Publishing with cibuildwheel
 
-{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_03_publishing_ci>`
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_03_cibuildwheel>`
 
 In the [basic publishing chapter](../basic-packaging/05_publishing_ci.md), one
 job built an SDist and a wheel, and one job uploaded them. If you have

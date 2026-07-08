@@ -1,4 +1,4 @@
-# SIMPLE-PY
+# SIMPLE-Py
 
 This workshop is a work in progress. Check back soon!
 

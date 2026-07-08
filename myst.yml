@@ -21,7 +21,7 @@ project:
       children:
         - file: content/compiled/01_package.md
         - file: content/compiled/02_binding.md
-        - file: content/compiled/03_publishing_ci.md
+        - file: content/compiled/03_cibuildwheel.md
     - title: Scikit Build
       children:
         - file: content/scikit-build/01_custom.md
@@ -39,7 +39,7 @@ project:
       children:
         - file: content/interesting/free_threading.md
         - file: content/interesting/lazy_imports.md
-        - file: content/interesting/pep723.md
+        - file: content/interesting/ai_skbc.md
         - file: content/interesting/solvers.md
 
 site:
