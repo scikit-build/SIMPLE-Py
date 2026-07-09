@@ -7,3 +7,7 @@ node_modules
 # Symlink to AGENTS.md
 CLAUDE.md
 .claude/
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml
