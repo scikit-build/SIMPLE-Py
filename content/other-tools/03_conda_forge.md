@@ -1,5 +1,7 @@
 # Shipping to conda-forge
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/5_03_conda_forge>`
+
 ## What is a conda package (short version)?
 
 A conda package is fundamentally a zip compressed archive (`.conda`) that contains two `.tar.zst` archives with one containing the package files and the other containing all the metadata.
@@ -14,6 +16,7 @@ The package format is simple yet general, powerful, and **language agnostic** &m
 Conda "platforms" are combinations of operating systems (e.g. Linux, macOS) and computing architectures (e.g. x86_64, AArch64) for which a particular conda package is built.
 
 Example of conda platform name mapping:
+
 * `linux-64`: Linux x86_64
 * `linux-aarch64`: Linux AArch64
 * `osx-64`: macOS x86_64
@@ -43,17 +46,16 @@ The recipe file is separated into [multiple sections](https://rattler-build.pref
 | `package`      | Defines the name and version of the package you are currently building and will be the name of the final output             |
 | `source`       | Defines where the source code is going to be downloaded from and checksums                                                               |
 | `build`        | Settings for the build and the build script                                                                                              |
-| `requirements` | Allows the definition of build, host, run and run-constrained dependencies
+| `requirements` | Allows the definition of build, host, run and run-constrained dependencies |
 
 `rattler-build` can then be used to build the recipe at the command line with `rattler-build`'s CLI API:
 
-```
+```text
 # pixi global install rattler-build
 rattler-build build --recipe <path to recipe directory>
 ```
 
 ## Example conda recipes
-
 
 ::: {important} Conda package dependencies
 
@@ -204,14 +206,14 @@ extra:
 
 ## Submitting a package to conda-forge
 
-The building of packages for the conda-forge conda channel is centralized through a community maintained build farm which builds all of the conda-forge feedstocks &mdash; GitHub repository with the conda package recipe, supporting scripts, and CI configuration &mdash; on https://github.com/conda-forge/.
-To get a conda recipe on conda-forge you need to submit it for build checks and review to https://github.com/conda-forge/staged-recipes.
+The building of packages for the conda-forge conda channel is centralized through a community maintained build farm which builds all of the conda-forge feedstocks &mdash; GitHub repository with the conda package recipe, supporting scripts, and CI configuration &mdash; on <https://github.com/conda-forge/>.
+To get a conda recipe on conda-forge you need to submit it for build checks and review to <https://github.com/conda-forge/staged-recipes>.
 
 ### Submitting recipes to `conda-forge/staged-recipes` workflow
 
-1. Fork https://github.com/conda-forge/staged-recipes to your personal GitHub.
+1. Fork <https://github.com/conda-forge/staged-recipes> to your personal GitHub.
 
-   ```
+   ```text
    # pixi global install gh git
    gh repo fork conda-forge/staged-recipes --clone=false
    git clone --depth 10 git@github.com:<your GitHub account username>/staged-recipes.git
@@ -223,7 +225,7 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
 
 2. Make a **new** branch from `main` for your package's recipe.
 
-   ```
+   ```text
    git checkout upstream/main -b feat/add-my-package
    ```
 
@@ -231,29 +233,29 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
 
     * If the package exists on PyPI already use Pixi and `grayskull` to [generate the recipe](https://github.com/conda-forge/staged-recipes#generating-recipes-with-grayskull)
 
-    ```
+    ```text
     pixi run pypi <PyPI package name>
     ```
 
-    Example:
+   Example:
 
-    ```
+    ```text
     pixi run pypi boost-histogram
     ```
 
-    This will produce the recipe at `./recipes/<PyPI package name>/`.
+   This will produce the recipe at `./recipes/<PyPI package name>/`.
 
     * If the package is not already on PyPI, copy the example `rattler-build` ("v1") recipe into a directory named for your package (replacing `example_package` with your unique package name)
 
-    ```
+    ```text
     cp -R ./recipes/example-v1 ./recipes/example_package
     ```
 
-    and then edit the package's `recipe.yaml` to meet your package needs following the hints in the comments, in the `README.md`, and the [`rattler-build` docs/tutorials](https://rattler-build.prefix.dev/latest/tutorials/python/).
+   and then edit the package's `recipe.yaml` to meet your package needs following the hints in the comments, in the `README.md`, and the [`rattler-build` docs/tutorials](https://rattler-build.prefix.dev/latest/tutorials/python/).
 
 4. Once you have your recipe ready, stage and commit it to Git, and then lint the recipe
 
-   ```
+   ```text
    pixi run lint
    ```
 
@@ -261,13 +263,13 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
 
 5. Run a test build of the package locally.
 
-   ```
+   ```text
    pixi run <build-linux|build-osx|build-win>
    ```
 
 6. If the test build passes, make sure all your changes are committed, and push your branch to your fork
 
-   ```
+   ```text
    git push -u origin HEAD
    ```
 
@@ -277,20 +279,20 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
    Once your builds are passing, mark your PR as ready for review and tag the relevant [conda-forge/staged-recipes review team](https://github.com/conda-forge/staged-recipes#review-teams).
    For pure-Python packages this would be
 
-   ```
+   ```text
    @conda-forge/help-python, ready for review!
    ```
 
    and for packages with compile extensions this would be
 
-   ```
+   ```text
    @conda-forge/help-python-c, ready for review!
    ```
 
-   Once you do so, the  conda-forge-webservices will apply the relevant tags for the review team to find the recipe.
+   Once you do so, the conda-forge-webservices will apply the relevant tags for the review team to find the recipe.
 
 7. Once your recipe is reviewed and approved, it will be merged, which will then kick of automation to generate a conda-forge feedstock at `https://github.com/conda-forge/<package name>-feedstock` and to generate a maintainer team on GitHub populated by the `extra.recipe-maintainers` list in the package recipe.
-   Your package feedstock will be automatically regenerated by the `conda-forge-admin` bot account and then the built packages will be automatically uploaded to https://anaconda.org/channels/conda-forge.
+   Your package feedstock will be automatically regenerated by the `conda-forge-admin` bot account and then the built packages will be automatically uploaded to <https://anaconda.org/channels/conda-forge>.
 
 ## Getting help
 
