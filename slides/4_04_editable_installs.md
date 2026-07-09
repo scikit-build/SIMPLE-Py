@@ -47,8 +47,9 @@ build-dir = "build"
 ```python
 from importlib.resources import files
 
+
 def show_file():
-    cmake_file = files("example") / "file.txt" 
+    cmake_file = files("example") / "file.txt"
     print(cmake_file.read_text())
 ```
 
@@ -74,7 +75,7 @@ install(FILES
 ---
 
 # Example: It works!
-```python
+```pycon
 >>> import example
 >>> example.show_file()
 Hello, world!
@@ -132,7 +133,7 @@ Off to the races!
 # Tips and pitfalls
 ## Use `importlib.resources`
 
-```python
+```pycon
 >>> from pathlib import Path
 >>> lib = Path(__file__) / "../my_lib.so"
 >>> lib.open()
@@ -146,7 +147,7 @@ NotADirectoryError: [Errno 20] Not a directory: 'test.py/../my_lib.so'
 # Tips and pitfalls
 ## Use `importlib.resources`
 
-```python
+```pycon
 >>> from importlib.resources import files
 >>> lib = files("my_pkg") / "my_lib.so"
 >>> lib.open()

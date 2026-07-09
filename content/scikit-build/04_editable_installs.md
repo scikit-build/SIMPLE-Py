@@ -36,6 +36,7 @@ This mode requires _you_ to setup the CMake build to put the build artifacts in 
 ## Scikit-build-core 1.0 tricks and tips
 
 Use can now rebuild the CMake project on demand with
+
 ```{code} python
 :linenos:
 :emphasize-lines: 2
@@ -50,15 +51,17 @@ Use can now rebuild the CMake project on demand with
 
 Build dependencies that provide CMake files (e.g. `pybind11`) need to be persistent in order to be able to rebuild.
 With `--no-build-isolation` the build dependencies are taken from local `site-packages`
+
 ```console
-$ pip install --no-build-isolation -e .
-$ uv sync --no-build-isolation
+pip install --no-build-isolation -e .
+uv sync --no-build-isolation
 ```
 
 ### Use `importlib.resources`
 
 Inherently `redirect` editable mode behaves like a namespaced package, i.e. sources are in multiple locations.
-You cannot rely on patterns like `__file__` to navigate to 
+You cannot rely on patterns like `__file__` to navigate to
+
 ```{code} python
 >>> from pathlib import Path
 >>> lib = Path(__file__) / "../my_lib.so"
@@ -67,6 +70,7 @@ NotADirectoryError: [Errno 20] Not a directory: 'test.py/../my_lib.so'
 ```
 
 Instead use `importlib.resources.files`
+
 ```{code} python
 :linenos:
 :emphasize-lines: 2
@@ -98,15 +102,17 @@ version = "0.1.0"
 [tool.scikit-build]
 build-dir = "build"
 ```
+
 ```{code} toml
 :filename: python/example/__init__.py
 
 from importlib.resources import files
 
 def show_file():
-    cmake_file = files("example") / "file.txt" 
+    cmake_file = files("example") / "file.txt"
     print(cmake_file.read_text())
 ```
+
 ```{code} toml
 :filename: CMakeLists.txt
 
@@ -119,6 +125,7 @@ add_custom_target(copy_file ALL
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/file.txt DESTINATION ${SKBUILD_PROJECT_NAME})
 ```
+
 ```{code} python
 >>> import example
 >>> example.show_file()
