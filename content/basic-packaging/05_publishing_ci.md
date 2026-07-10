@@ -7,7 +7,7 @@ chapter automates both: run your tests and linters on every pull request with
 [GitHub Actions][], then publish to PyPI with one click using [Trusted
 Publishing][]. This page covers pure Python packages; compiled packages add one
 more tool ([cibuildwheel][]) that we'll meet in the
-[compiled section](../compiled/03_cibuildwheel.md).
+[compiled section](../compiled/04_cibuildwheel.md).
 
 ## GitHub Actions in a nutshell
 
@@ -391,7 +391,7 @@ Everything above still applies, except one wheel is no longer enough: a
 compiled package needs a wheel _per platform, per architecture_ (and without
 the stable ABI, per Python version). That's a build matrix problem, and
 [cibuildwheel][] solves it in a few lines of CI. That's the
-[compiled section's publishing chapter](../compiled/03_cibuildwheel.md).
+[compiled section's publishing chapter](../compiled/04_cibuildwheel.md).
 
 [github actions]: https://docs.github.com/en/actions
 [trusted publishing]: https://docs.pypi.org/trusted-publishers/

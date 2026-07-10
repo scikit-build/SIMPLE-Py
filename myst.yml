@@ -21,7 +21,8 @@ project:
       children:
         - file: content/compiled/01_package.md
         - file: content/compiled/02_binding.md
-        - file: content/compiled/03_cibuildwheel.md
+        - file: content/compiled/03_rust.md
+        - file: content/compiled/04_cibuildwheel.md
     - title: Scikit Build
       children:
         - file: content/scikit-build/01_custom.md
