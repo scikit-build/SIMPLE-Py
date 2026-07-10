@@ -1,5 +1,7 @@
 # A minimal compiled package with scikit-build
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_01_package>`
+
 You've seen how to build a package already. Let's try a compiled package now!
 
 ## First simple package
@@ -35,6 +37,43 @@ Hopefully you noticed that we set a module name, `collatz`, in
 compiled to, since that's also how you look up the main entry point into the
 code.
 
+pybind11 isn't the only choice. [nanobind](https://nanobind.readthedocs.io) is
+a lighter, faster tool from the same author, and it also builds with
+CMake, so everything below works with a one-line swap. The binding itself looks
+almost identical:
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+
+```c++
+#include <pybind11/pybind11.h>
+
+PYBIND11_MODULE(collatz, m) {
+  m.def("collatz_steps", &collatz_steps);
+}
+```
+
+:::
+
+:::{tab-item} nanobind
+
+```c++
+#include <nanobind/nanobind.h>
+
+NB_MODULE(collatz, m) {
+  m.def("collatz_steps", &collatz_steps);
+}
+```
+
+:::
+
+::::
+
+We'll stick with pybind11 for this chapter. The [next chapter](./02_binding.md)
+compares the binding tools (including Rust via PyO3) in depth; here we care
+about the _packaging_ around them, which is the same either way.
+
 Now, you need a `pyproject.toml`. We use `scikit-build-core` as the build
 backend, and list `pybind11` so CMake can find it while building:
 
@@ -60,7 +99,9 @@ pybind11_add_module(collatz collatz.cpp)
 install(TARGETS collatz DESTINATION .)
 ```
 
-And that should be it! Try it:
+And that should be it! Before you run it, take a guess: starting from `27`, how
+many steps do you think the sequence takes to reach `1`? (The number climbs to
+`9232` on the way, so don't feel bad if you're off.) Now try it:
 
 ```console
 $ uv run python
@@ -96,14 +137,64 @@ steps, the most under 100.
 
 :::
 
+## Was it worth it?
+
+We claimed a tight integer loop is "fast in a compiled language." Let's check.
+Here's the same function in pure Python:
+
+```python
+def collatz_steps(n):
+    steps = 0
+    while n != 1:
+        n = n // 2 if n % 2 == 0 else 3 * n + 1
+        steps += 1
+    return steps
+```
+
+`timeit` makes the comparison easy — point it at each version and let it pick a
+sensible number of loops:
+
+```console
+$ python -m timeit -s "from collatz import collatz_steps" "collatz_steps(97)"
+1000000 loops, best of 5: 210 nsec per loop
+
+$ python -m timeit -s "from mymodule import collatz_steps" "collatz_steps(97)"
+100000 loops, best of 5: 5.8 usec per loop
+```
+
+Exact numbers depend on your machine, but the shape holds: the compiled version
+is roughly **20–30× faster** here. That gap is the whole reason to reach for a
+compiled extension — and it's why the loop lives in C++ while the packaging,
+which runs once, stays in Python.
+
+:::{exercise} Benchmark it yourself
+:label: pkg-bench
+
+Save the pure-Python version as `mymodule.py`, then run both `timeit` lines
+above. How does the ratio change if you benchmark a _cheaper_ input like
+`collatz_steps(1)` instead of `collatz_steps(97)`? Why?
+
+:::
+
+:::{solution} pkg-bench
+:class: dropdown
+
+With `collatz_steps(1)` the loop body never runs, so you're mostly timing the
+call overhead — crossing the Python↔C boundary. The compiled version still
+wins, but by much less, because there's no hot loop for it to speed up. The
+lesson: compiled extensions pay off when there's real work _inside_ the call,
+not for tiny wrappers around trivial operations.
+
+:::
+
 ## Make the package better
 
-You don't have to do add anything more, but there are config settings that
+You don't have to add anything more, but there are config settings that
 really help, let's look at a few.
 
-### Minimium-version
+### Minimum version
 
-How do you ensure new users get good defaults, but old users don't break when defaults change? CMake handles this elegently:
+How do you ensure new users get good defaults, but old users don't break when defaults change? CMake handles this elegantly:
 
 ```cmake
 cmake_minimum_required(VERSION 3.15)
@@ -134,7 +225,7 @@ the SDist inclusion mode to make it more useful and faster, but if you set
 something older than `"0.12"` here, you'll get the old mode.
 
 If we have to change something due to PyPI or some other tool we don't control
-(like non-normalized SDist names no longer being uploadabe on PyPI), then that
+(like non-normalized SDist names no longer being uploadable on PyPI), then that
 won't be gated by this value.
 
 Since you should also provide a minimum in your build system requirements,
@@ -169,7 +260,7 @@ This ensures that Python doesn't pick up the local folder if you run `import
 example` inside the project directory. This is especially important for
 compiled code, since you (and your tests, etc) can't run the uncompiled version!
 
-Just like hatchling (which we took a lot of insperation from!), the name matters! Your
+Just like hatchling (which we took a lot of inspiration from!), the name matters! Your
 package name must match the project name, and be in `/`, `/src`, or `/python`. If not,
 you need to tell it where to discover it:
 
@@ -235,6 +326,48 @@ name matches the project name.
 
 :::
 
+:::{caution} Three names that must line up
+
+The most common beginner error is a mismatch between three separate names.
+Getting any one wrong gives an unhelpful `ImportError` at runtime, not a build
+failure:
+
+1. The name in `PYBIND11_MODULE(name, m)` (or `NB_MODULE`) — this is what the
+   compiled `.so`/`.pyd` is called.
+2. The `install(TARGETS ... DESTINATION ...)` path — where CMake puts it in the
+   wheel.
+3. The name you `import` in Python.
+
+In the src-layout above, the module is `_core`, it installs to `collatz/`, and
+you import it as `collatz._core`. If you rename the C++ module but forget the
+`__init__.py` re-export, `from collatz import collatz_steps` breaks even though
+the build succeeded. When something imports oddly, check these three first.
+
+:::
+
+### The two distributions
+
+A package ships as two artifacts, and it's worth seeing how they relate before
+we build each one. The {term}`SDist` is the source you build _from_; the
+{term}`wheel` is the pre-built result you _install_:
+
+```{mermaid}
+flowchart LR
+  src["source tree<br/>collatz.cpp<br/>CMakeLists.txt<br/>pyproject.toml"]
+  sdist["SDist<br/>collatz-0.1.0.tar.gz"]
+  wheel["wheel<br/>collatz-0.1.0-*.whl"]
+  site["site-packages<br/>(installed)"]
+  src -->|"uv build --sdist"| sdist
+  src -->|"uv build --wheel"| wheel
+  sdist -.->|"build from sdist"| wheel
+  wheel -->|"pip install"| site
+```
+
+The two differ in what they contain: an SDist keeps build inputs (source,
+`CMakeLists.txt`, tests), while a wheel keeps only the runtime package plus the
+compiled extension. Deciding what lands in each is the tricky part, so let's
+take them one at a time.
+
 ### Building the SDist
 
 An SDist is the source of your package, and it needs to contain everything
@@ -263,13 +396,38 @@ hatchling, due to the fact they tend to map to git by default.
 If you need files from somewhere else, you can use `sdist.force-include`
 (spelling slightly different in hatchling).
 
-Try building an SDist, and list the files in it.
-
-:::{callout}
+:::{note}
 
 * Do your tests go in the SDist? Yes.
 * Do your docs go in the SDist? Ehh. Depends. Kindof.
 * Do your CI files go in the SDist? No, but who cares, they are small.
+:::
+
+:::{exercise} Build and inspect the SDist
+:label: pkg-sdist
+
+Build an SDist for your collatz package and list its contents:
+
+```bash
+uv build --sdist
+tar -tf dist/*.tar.gz
+```
+
+Which files ended up inside? Was anything included that surprised you — or
+missing that you expected?
+
+:::
+
+:::{solution} pkg-sdist
+:class: dropdown
+
+You should see your source (`collatz.cpp` or `src/collatz/`), `CMakeLists.txt`,
+`pyproject.toml`, and a generated `PKG-INFO`. Because scikit-build-core starts
+from "everything not `.gitignore`d," a stray file in your working tree (a scratch
+script, a `.venv` you forgot to ignore) can sneak in — which is exactly why the
+`.gitignore` baseline matters. Notably, your build artifacts (`dist/`,
+`build/`) should _not_ appear, since they're git-ignored.
+
 :::
 
 ### Building the wheel
@@ -280,23 +438,28 @@ it's better defined; only your package goes in, tests, docs, etc. do not.
 Scikit-build-core includes everything in the auto-discovered or explicitly
 named `wheel.packages`. It also contains anything CMake installs.
 
-You can adjust quite a bit, though. For example, you can change what the install
-targets:
+You can adjust quite a bit, though. For example, `wheel.install-dir` sets where
+CMake's install tree is grafted into the wheel, so you can keep `DESTINATION .`
+in CMake and redirect everything from one place:
 
 ```toml
 [tool.scikit-build]
-wheel.install-dir = "colatz"
+wheel.install-dir = "collatz"
 ```
 
 ```cmake
 install(TARGETS _core DESTINATION .)
 ```
 
+Now the target installed to `.` lands in `collatz/` inside the wheel. Be
+careful: paths here are relative to the wheel root, and an absolute path is an
+error.
+
 You can also use `wheel.force-include` to move things around, and
 `wheel.exclude` to strip out items you don't want. There are controls over what
 "components" CMake installs, which can allow you to pick a subset from CMake.
 
-:::{callout}
+:::{note}
 Wheels have multiple directories that are handled differently, and are all
 available using CMake (style) variables:
 
@@ -309,7 +472,7 @@ available using CMake (style) variables:
 
 :::
 
-To build an wheel:
+To build a wheel:
 
 ```bash
 uv build --wheel
@@ -323,4 +486,120 @@ SDist is complete), pass the archive, such as: `uv build dist/collatz-0.1.0.tar.
 
 To see what's in your wheel, use `unzip -l dist/*.whl`.
 
-Try building a wheel, and list the files in it.
+:::{exercise} Build and inspect the wheel
+:label: pkg-wheel
+
+Build a wheel and list its contents:
+
+```bash
+uv build --wheel
+unzip -l dist/*.whl
+```
+
+Compare it to the SDist from the previous exercise. What's _in_ the wheel that
+wasn't obvious from your source tree, and what's _missing_ that was in the SDist?
+
+:::
+
+:::{solution} pkg-wheel
+:class: dropdown
+
+The wheel contains your compiled extension (a platform-tagged `.so` or `.pyd` —
+note the wheel filename encodes your platform and Python version), the package's
+`__init__.py`, and a `collatz-0.1.0.dist-info/` metadata directory. It does
+_not_ contain `CMakeLists.txt`, `collatz.cpp`, or any tests — those are build
+inputs, not runtime files. That's the core difference: the SDist is what you
+build _from_, the wheel is what you install.
+
+:::
+
+### Iterating: the full compiled edit loop
+
+So far each change meant a fresh build. For real development you want an
+_editable_ install so Python picks up your package in place — and for compiled
+code, scikit-build-core can even rebuild the extension automatically when you
+re-import it. That's covered in [its own chapter](../scikit-build/04_editable_installs.md);
+the short version is:
+
+```bash
+uv pip install --no-build-isolation -e .
+```
+
+When a build goes wrong, two knobs help you see what happened:
+
+```toml
+[tool.scikit-build]
+build.verbose = true      # show the full compiler command lines
+cmake.build-type = "Debug"
+```
+
+You can also pass CMake defines through the build without editing files, which
+is handy for one-off experiments:
+
+```bash
+uv build --wheel -C cmake.define.CMAKE_CXX_STANDARD=20
+```
+
+:::{exercise} Add a second function
+:label: pkg-extend
+
+Extend the extension with `collatz_max(n)` that returns the _largest_ value the
+sequence reaches (the peak, not the number of steps). Rebuild, re-import, and
+confirm `collatz_max(27)` returns `9232`. Don't forget to re-export it from
+`__init__.py` if you're using the src layout.
+
+:::
+
+:::{solution} pkg-extend
+:class: dropdown
+
+Add the function and a second binding in the C++ file:
+
+```c++
+long long collatz_max(long long n) {
+  long long peak = n;
+  while (n != 1) {
+    n = (n % 2 == 0) ? n / 2 : 3 * n + 1;
+    peak = n > peak ? n : peak;
+  }
+  return peak;
+}
+
+PYBIND11_MODULE(_core, m) {
+  m.def("collatz_steps", &collatz_steps);
+  m.def("collatz_max", &collatz_max);
+}
+```
+
+If you're on the src layout, add `collatz_max` to the `__init__.py` re-export
+and its `__all__`. Then rebuild — `collatz_max(27)` returns `9232`, the peak we
+mentioned back when you first ran `collatz_steps(27)`.
+
+:::
+
+## Glossary
+
+:::{glossary}
+
+SDist
+: Source distribution — a `.tar.gz` containing everything needed to build the
+package. You build a wheel _from_ it.
+
+wheel
+: A pre-built, installable archive. For compiled packages it's platform- and
+Python-specific, which is encoded in the filename tags.
+
+platlib
+: The platform-specific library directory inside a wheel. Its contents install
+straight into site-packages; it's where your compiled extension goes.
+
+policy
+: A CMake versioned behavior switch. `cmake_minimum_required` selects a policy
+set, so raising the minimum version opts into newer defaults all at once.
+
+editable install
+: An install that points at your working tree instead of copying files, so
+source edits take effect without reinstalling. scikit-build-core can also
+rebuild the compiled part on import.
+
+:::
