@@ -19,7 +19,7 @@ project:
         - file: content/basic-packaging/05_publishing_ci.md
     - title: Compiled
       children:
-        - file: content/compiled/01_package.md
+        - file: content/compiled/01_compiled.md
         - file: content/compiled/02_binding.md
         - file: content/compiled/03_rust.md
         - file: content/compiled/04_cibuildwheel.md

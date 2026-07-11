@@ -1,6 +1,6 @@
 # A minimal compiled package with scikit-build
 
-{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_01_package>`
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_01_compiled>`
 
 You've seen how to build a package already. Let's try a compiled package now!
 
