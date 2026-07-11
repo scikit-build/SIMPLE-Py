@@ -295,7 +295,7 @@ ZeroDivisionError: division by zero
 
 ```console
 $ pixi run maturin build --release
-📦 Built wheel to target/wheels/
+📦 Built wheel for CPython 3.14 to .../target/wheels/
    pyo3_example-0.1.0-cp314-cp314-manylinux_2_28_x86_64.whl
 ```
 
