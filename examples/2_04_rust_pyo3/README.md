@@ -16,7 +16,7 @@ Output of `pixi run bench` on an AMD Ryzen AI 9 HX 370 (Linux, Python 3.14, rust
 
 ```text
 count_primes(1_000_000), best of 3 runs:
-  pure Python: 1.635 s
+  pure Python: 1.601 s
   Rust (PyO3): 0.084 s
   speedup:     19x
 ```

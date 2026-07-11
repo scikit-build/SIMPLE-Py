@@ -84,6 +84,7 @@ The `[dependencies]` table is the entire toolchain &mdash; the Rust compiler is 
 The `[tasks]` table wraps the commands we will use for the rest of the chapter, and `depends-on` chains a build in front of the tests and the benchmark so they can never run against a stale extension.
 
 ::: {tip} No rustup, no system Rust
+:class: dropdown
 
 A single `pixi install` provisions `rustc`, `cargo`, and even Rust's linter and formatter (`clippy` and `rustfmt` &mdash; the `ruff check` and `ruff format` of Rust) from conda-forge, entirely inside the project environment.
 Nothing touches your system: no rustup, no shell-profile edits, no admin rights.

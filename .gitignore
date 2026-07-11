@@ -9,6 +9,9 @@ node_modules
 CLAUDE.md
 .claude/
 
+# Agent-local tool state
+.serena/
+
 # pixi environments
 .pixi/*
 !.pixi/config.toml
