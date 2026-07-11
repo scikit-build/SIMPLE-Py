@@ -1,0 +1,4 @@
+# Artifacts from the in-place editable build (see editable.mode = "inplace")
+src/setuptools_example/*.so
+src/*.egg-info/
+__pycache__/
