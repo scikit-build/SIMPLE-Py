@@ -199,8 +199,8 @@ $ pixi run develop
 🔗 Found pyo3 bindings
 📡 Using build options features from pyproject.toml
    Compiling pyo3_example v0.1.0 (/home/matt/src/SIMPLE-Py-worktrees/rust/examples/2_04_rust_pyo3)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.14s
-📦 Built wheel for CPython 3.14 to /tmp/.tmpyrBTrp/pyo3_example-0.1.0-cp314-cp314-linux_x86_64.whl
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+📦 Built wheel for CPython 3.14 to /tmp/.tmpxvrtja/pyo3_example-0.1.0-cp314-cp314-linux_x86_64.whl
 ✏️ Setting installed package as editable
 🛠 Installed pyo3_example-0.1.0
 ```
