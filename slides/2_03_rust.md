@@ -73,19 +73,13 @@ channels = ["conda-forge"]
 [tasks.develop]
 cmd = "maturin develop"
 
-[tasks.test]
-cmd = "pytest -v"
-depends-on = ["develop"]
-
 [dependencies]
 rust = ">=1.85"
 maturin = ">=1.9"
 python = ">=3.12"
-pytest = ">=8"
 ```
 
-- One `pixi install` provisions `rustc`, `cargo`, clippy, and `rustfmt` -
-  nothing touches your system
+- One `pixi install`, nothing global: `rustc`, `cargo`, clippy, `rustfmt`
 - Commit **both** lockfiles: `pixi.lock` (toolchain), `Cargo.lock` (crates)
 
 ---
@@ -106,12 +100,10 @@ pytest = ">=8"
 └── bench.py          # the benchmark
 ```
 
-- `pyproject.toml`: the same shape as every one in this book - only
-  `build-backend = "maturin"` and `features = ["pyo3/extension-module"]`
-  are new
-- `Cargo.toml`: its Rust twin - one dependency (`pyo3`), and
-  `crate-type = ["cdylib"]`: a C shared library, which is exactly what a
-  CPython extension module is
+- `pyproject.toml`: the usual shape - only `build-backend = "maturin"`
+  and `features = ["pyo3/extension-module"]` are new
+- `Cargo.toml`: its Rust twin - one dependency (`pyo3`) and
+  `crate-type = ["cdylib"]`: the C shared library CPython imports
 
 ---
 
@@ -157,9 +149,7 @@ mod pyo3_example {
 ```console
 $ pixi run develop
 🐍 Found CPython 3.14 at .../.pixi/envs/default/bin/python
-🔗 Found pyo3 bindings
    Compiling pyo3_example v0.1.0
-📦 Built wheel to .../pyo3_example-0.1.0-cp314-cp314-linux_x86_64.whl
 🛠 Installed pyo3_example-0.1.0
 ```
 
@@ -169,10 +159,8 @@ $ pixi run develop
 '5'
 ```
 
-- maturin found the interpreter on its own - a pixi environment is a conda
-  environment, detected just like a virtualenv
-- The one Rust-specific rule: after every edit to `src/lib.rs`, rerun
-  `pixi run develop` - you cannot re-import your way to new Rust code
+- maturin detects a pixi environment just like a virtualenv
+- After each edit, rerun `pixi run develop` - imports won't pick up new Rust
 
 ---
 
@@ -272,10 +260,8 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-- `pyo3::exceptions` mirrors the builtins; returning `Err` raises a genuine
-  exception - `except ZeroDivisionError:` catches it
-- Even a Rust *panic* cannot take down the interpreter - PyO3 catches it at
-  the boundary and raises `PanicException`
+- `pyo3::exceptions` mirrors the builtins - `except ZeroDivisionError:` works
+- A Rust *panic* can't take down the interpreter - PyO3 raises `PanicException`
 
 ---
 
@@ -298,11 +284,10 @@ ZeroDivisionError: division by zero
 
 - `py: Python<'_>`: a token proving this thread holds the GIL - PyO3
   supplies it, so Python callers still pass just `limit`
-- `py.detach(|| ...)` releases the GIL for the whole hot loop, like NumPy
-  does around its C loops - and the *compiler* rejects closures that touch
-  Python objects while detached
-- Free-threaded CPython removes the GIL; PyO3 is ahead of the curve, and
-  Rust's `Send`/`Sync` checks audit your extension for data races
+- `py.detach(|| ...)` releases the GIL for the hot loop, like NumPy around
+  its C loops - the *compiler* rejects closures that touch Python objects
+- Free-threaded CPython removes the GIL; Rust's `Send`/`Sync` checks audit
+  your extension for data races
 
 ---
 
@@ -310,20 +295,16 @@ ZeroDivisionError: division by zero
 
 ```console
 $ pixi run maturin build --release
-    Finished `release` profile [optimized] target(s) in 2.47s
 📦 Built wheel to target/wheels/
    pyo3_example-0.1.0-cp314-cp314-manylinux_2_28_x86_64.whl
 ```
 
 - Read the filename like a shipping label: `cp314-cp314` - exactly
-  CPython 3.14; `manylinux_2_28_x86_64` - any x86-64 Linux with
-  glibc ≥ 2.28, earned because maturin audits every wheel itself
-- **abi3**: add the `abi3-py310` feature to `pyo3` in `Cargo.toml` and one
-  `cp310-abi3` wheel per platform covers every CPython from 3.10 on -
-  cryptography ships exactly such wheels
+  CPython 3.14; `manylinux_2_28` - glibc ≥ 2.28, audited by maturin itself
+- **abi3**: the `abi3-py310` feature makes one `cp310-abi3` wheel per
+  platform cover every CPython from 3.10 on - how cryptography ships
 - Nobody builds the matrix by hand: `maturin generate-ci github` prints a
-  complete GitHub Actions release workflow - and cibuildwheel supports
-  maturin projects too
+  GitHub Actions release workflow; cibuildwheel supports maturin too
 
 ---
 
@@ -333,14 +314,7 @@ $ pixi run maturin build --release
 
 1. Add an `is_prime(n)` `#[pyfunction]` - the trial-division test inside
    `count_primes` is the algorithm
-2. Add a `distance_to(other)` method to `Point`, so that
-   `Point(0.0, 0.0).distance_to(Point(3.0, 4.0))` gives `5.0`
-3. Extend `tests/test_pyo3_example.py` to cover both; make `pixi run test`
-   pass again
+2. Add `Point.distance_to(other)` - the origin to `Point(3.0, 4.0)` is `5.0`
+3. Extend `tests/test_pyo3_example.py` to cover both - `pixi run test` again
 
-<br>
-
-**Further reading:** the [PyO3 user guide](https://pyo3.rs/) · the
-[maturin user guide](https://www.maturin.rs/) ·
-[rust-numpy](https://github.com/PyO3/rust-numpy) for zero-copy NumPy arrays ·
-[The Rust Programming Language](https://doc.rust-lang.org/book/) ("the Book")
+**Further reading:** the [PyO3 user guide](https://pyo3.rs/) · the [maturin user guide](https://www.maturin.rs/) · [rust-numpy](https://github.com/PyO3/rust-numpy) · [the Rust Book](https://doc.rust-lang.org/book/)
