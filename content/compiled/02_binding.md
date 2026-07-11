@@ -84,7 +84,27 @@ overhead per function to handle overloads, so if faster means bigger, it may not
 be the right fit.
 :::
 
-We are going to try a non-trivial project! Let's wrap Minuit2.
+## Intro to nanobind
+
+[nanobind](https://nanobind.readthedocs.io) is a newer library from the same
+original author, Wenzel Jakob. It keeps pybind11's design but expects the code
+to conform to nanobind, rather than trying to support all of C++, and in
+exchange it compiles quicker, produces much smaller binaries, and has lower
+call overhead.
+
+The API is deliberately close to pybind11, so most of what you just learned
+carries straight over -- `nb::` instead of `py::`, `NB_MODULE` instead of
+`PYBIND11_MODULE`. The main differences you'll hit when we wrap Minuit2:
+
+* STL casters are opt-in per type (`<nanobind/stl/vector.h>`,
+  `<nanobind/stl/string.h>`) instead of one catch-all `<pybind11/stl.h>`.
+* Trampolines for overriding virtuals in Python use the `NB_TRAMPOLINE` and
+  `NB_OVERRIDE_*` macros.
+* A factory constructor (a lambda rather than `nb::init<>`) binds through
+  `__init__` with a placement `new`, instead of pybind11's `py::init([]{ ... })`.
+
+We are going to try a non-trivial project! Let's wrap Minuit2 -- and since the
+two libraries are so similar, we'll show both side by side.
 
 ## Intro to Minuit2
 
@@ -180,82 +200,219 @@ you prefer.
 
 ## Binding Minuit2
 
-The great thing about pybind11 is that we can just bind the parts we need.
-There's a lot more to Minuit2, but we don't care. If we used an auto-binding
-tool (like SWIG), we'd have to work out issues for all the parts we aren't
-using first.
+The great thing about pybind11 and nanobind is that we can just bind the parts
+we need. There's a lot more to Minuit2, but we don't care. If we used an
+auto-binding tool (like SWIG), we'd have to work out issues for all the parts we
+aren't using first.
+
+We'll build the same module both ways -- pick a tab to see each tool.
 
 ### The main module
 
-Pybind11 programs are best split into a main module, which allows you
-to build the parts separately, with minimal header overlap, and then link it all
-at the end.
+These programs are best split into a main module, which allows you to build the
+parts separately, with minimal header overlap, and then link it all at the end.
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyminuit2/pyminuit2.cpp
 :language: cpp
 ```
 
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyminuit2/pyminuit2.cpp
+:language: cpp
+```
+
+:::
+
+::::
+
 Each `init_*` function fills in one piece of the module. We forward-declare them
-here and call them in `PYBIND11_MODULE`; the definitions live in their own files.
+here and call them in the module macro (`PYBIND11_MODULE` / `NB_MODULE`); the
+definitions live in their own files.
 
 ### Binding the FCN
 
 The FCN is an abstract base class in C++. To let Python subclass it, we use a
 "trampoline" class that routes the virtual calls back into Python:
 
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
+
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyminuit2/FCNBase.cpp
 :language: cpp
 ```
 
-`PYBIND11_OVERLOAD_PURE_NAME` maps C++'s `operator()` to Python's `__call__`,
-and `#include <pybind11/stl.h>` gives us automatic `std::vector<double>` ↔ list
-conversion.
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyminuit2/FCNBase.cpp
+:language: cpp
+```
+
+:::
+
+::::
+
+`PYBIND11_OVERLOAD_PURE_NAME` maps C++'s `operator()` to Python's `__call__`;
+nanobind's equivalent is `NB_OVERRIDE_PURE_NAME`, after declaring the trampoline
+with `NB_TRAMPOLINE`. Including `<pybind11/stl.h>` -- or, for nanobind, the
+per-type `<nanobind/stl/vector.h>` -- gives us automatic `std::vector<double>` ↔
+list conversion.
 
 ### Binding the parameters
 
 `MnUserParameters` holds the parameters to minimize. We bind the constructor and
-the two `Add` overloads (fixed and with an error) using `py::overload_cast`:
+the two `Add` overloads (fixed and with an error) using `py::overload_cast`
+(`nb::overload_cast` for nanobind, which also needs `<nanobind/stl/string.h>`
+for the parameter name):
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyminuit2/MnUserParameters.cpp
 :language: cpp
 ```
 
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyminuit2/MnUserParameters.cpp
+:language: cpp
+```
+
+:::
+
+::::
+
 ### Binding the minimizer
 
 `MnMigrad` runs the minimization. It inherits from `MnApplication`, so we bind
-both and tell pybind11 about the relationship. We use a lambda for the
-constructor so we can take a plain `unsigned int` strategy instead of an
-`MnStrategy` object, and the same `_a` literals for named arguments we saw with
-`Vector2D`, now with defaults:
+both and declare the relationship (`py::class_<MnMigrad, MnApplication>`, or the
+`nb::` equivalent). We use a lambda for the constructor so we can take a plain
+`unsigned int` strategy instead of an `MnStrategy` object: pybind11 wraps it in
+`py::init(...)`, while nanobind binds `__init__` directly and placement-`new`s
+into the object. The same `_a` literals give named arguments with defaults, as
+we saw with `Vector2D`:
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyminuit2/MnApplication.cpp
 :language: cpp
 ```
 
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyminuit2/MnApplication.cpp
+:language: cpp
+```
+
+:::
+
+::::
+
 ### Binding the result
 
 Finally, `FunctionMinimum` is the result. We only need to print it, so we bind
-`__str__` to stream the C++ object into a string:
+`__str__` to stream the C++ object into a string (nanobind needs
+`<nanobind/stl/string.h>` to return it):
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyminuit2/FunctionMinimum.cpp
 :language: cpp
 ```
 
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyminuit2/FunctionMinimum.cpp
+:language: cpp
+```
+
+:::
+
+::::
+
 ### Build configuration
 
-The CMake is much like before, but we use `pybind11_add_module` instead of a
-plain executable, glob the source files together, and `install` the resulting
-module:
+The CMake is much like before, but we use `pybind11_add_module` (or
+`nanobind_add_module`) instead of a plain executable, glob the source files
+together, and `install` the resulting module. nanobind also wants an explicit
+`find_package(Python ...)`:
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/CMakeLists.txt
 :language: cmake
 ```
 
-We drive the build with scikit-build-core, so we need a `pyproject.toml`:
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/CMakeLists.txt
+:language: cmake
+```
+
+:::
+
+::::
+
+We drive the build with scikit-build-core, so we need a `pyproject.toml` -- just
+list the right binding tool in `build-system.requires`:
+
+::::{tab-set}
+
+:::{tab-item} pybind11
+:sync: pybind11
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/pyproject.toml
 :language: toml
 ```
+
+:::
+
+:::{tab-item} nanobind
+:sync: nanobind
+
+```{literalinclude} ../../examples/2_02_binding/nanobind/pyproject.toml
+:language: toml
+```
+
+:::
+
+::::
 
 ### Build and run
 
@@ -265,7 +422,8 @@ Install and run it in one step with uv:
 uv run sample.py
 ```
 
-Our sample script mirrors the C++ program, but in Python:
+The Python API is identical either way, so the same sample script -- a mirror of
+the C++ program -- runs against both modules:
 
 ```{literalinclude} ../../examples/2_02_binding/pybind11/sample.py
 :language: python
