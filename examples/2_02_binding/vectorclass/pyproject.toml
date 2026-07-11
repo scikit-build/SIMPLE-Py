@@ -1,0 +1,16 @@
+[build-system]
+requires = ["scikit-build-core>=1", "pybind11>=3"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "vectorclass"
+version = "0.0.1"
+
+# Rebuild the editable install when the build config or C++ sources change
+[tool.uv]
+cache-keys = [
+    { file = "pyproject.toml" },
+    { file = "CMakeLists.txt" },
+    { file = "*.cpp" },
+    { file = "*.hpp" },
+]

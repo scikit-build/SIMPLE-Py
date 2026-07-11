@@ -1,0 +1,16 @@
+[build-system]
+requires = ["scikit-build-core>=1", "nanobind>=2"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pyminuit2"
+version = "0.0.1"
+
+# Rebuild the editable install when the build config or C++ sources change
+[tool.uv]
+cache-keys = [
+    { file = "pyproject.toml" },
+    { file = "CMakeLists.txt" },
+    { file = "pyminuit2/**/*.cpp" },
+    { file = "pyminuit2/**/*.hpp" },
+]
