@@ -309,16 +309,19 @@ Install and run in one step — the sample mirrors the C++ program:
 ```python
 import minuit2
 
+
 class SimpleFCN(minuit2.FCNBase):
     def Up(self):
         return 0.5
+
     def __call__(self, v):
         return v[0] ** 2
+
 
 upar = minuit2.MnUserParameters()
 upar.Add("x", 1.0, 0.1)
 minimum = minuit2.MnMigrad(SimpleFCN(), upar)()
-print(minimum)   # same output as the C++ version
+print(minimum)  # same output as the C++ version
 ```
 
 ```bash
