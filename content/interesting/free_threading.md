@@ -1,5 +1,7 @@
 # Modern Python: Free-threading
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/6_01_free_threading>`
+
 For most of Python's history, the **Global Interpreter Lock** (GIL) has meant
 that only one thread runs Python bytecode at a time. Threads are great for
 overlapping I/O, but they can't use more than one core for computation --- for
