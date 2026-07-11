@@ -1,0 +1,19 @@
+[build-system]
+requires = ["scikit-build-core>=1", "nanobind>=2"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "freecomputepi"
+version = "0.0.1"
+requires-python = ">=3.14"
+
+[tool.cibuildwheel]
+build = "cp314*"
+
+# Rebuild the editable install when the build config or C++ sources change
+[tool.uv]
+cache-keys = [
+    { file = "pyproject.toml" },
+    { file = "CMakeLists.txt" },
+    { file = "freecomputepi/**/*.cpp" },
+]
