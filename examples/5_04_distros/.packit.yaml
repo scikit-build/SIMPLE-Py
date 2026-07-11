@@ -1,0 +1,5 @@
+specfile_path: foo.spec
+
+jobs:
+  - job: copr_build
+    trigger: pull_request

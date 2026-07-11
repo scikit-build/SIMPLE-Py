@@ -134,6 +134,43 @@ Lorem ipsum
 
 ---
 
+<div class="columns">
+<div>
+
+
+## Try it locally
+
+```console
+vi foo.spec
+packit init
+packit build in-mock
+```
+
+## In CI
+
+```yaml
+specfile_path: foo.spec
+
+jobs:
+  - job: copr_build
+    trigger: pull_request
+```
+
+</div>
+<div>
+
+## DIY local build
+
+TBD: what method you want to see?
+- Dockerfile?
+- Plain rpmbuild?
+- MacOS?
+
+</div>
+</div>
+
+---
+
 # Shipping to distros
 
 ![](../content/other-tools/04_distros-shipping.jpg)
