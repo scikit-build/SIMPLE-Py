@@ -41,7 +41,7 @@ project:
         - file: content/interesting/free_threading.md
         - file: content/interesting/lazy_imports.md
         - file: content/interesting/ai_skbc.md
-        - file: content/interesting/solvers.md
+        - file: content/interesting/cuda.md
 
 site:
   template: book-theme
