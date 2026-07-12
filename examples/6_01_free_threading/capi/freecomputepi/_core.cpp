@@ -21,7 +21,7 @@ double pi(int trials) {
 }
 
 // Everything below is the binding boilerplate pybind11/nanobind write for us:
-// argument conversion, the method table, and the module definition.
+// argument conversion, the method table, and the module export.
 static PyObject *pi_py(PyObject *, PyObject *arg) {
     long trials = PyLong_AsLong(arg);
     if (trials == -1 && PyErr_Occurred()) {
@@ -35,14 +35,17 @@ static PyMethodDef methods[] = {
     {},
 };
 
-// Py_mod_gil is the free-threading opt-in; using slots at all requires
-// multi-phase initialization (PEP 489).
-static PyModuleDef_Slot slots[] = {
-    {Py_mod_gil, Py_MOD_GIL_NOT_USED},
-    {},
+// The 3.15+ stable ABI covers free-threaded builds (abi3t, PEP 803), but
+// hides PyModuleDef: instead, a PyModExport_<name> hook returns a slot array
+// (PEP 793). Py_mod_gil is the free-threading opt-in.
+PyABIInfo_VAR(abi_info);
+
+static PySlot slots[] = {
+    PySlot_STATIC_DATA(Py_mod_name, (void *)"_core"),
+    PySlot_STATIC_DATA(Py_mod_methods, methods),
+    PySlot_DATA(Py_mod_abi, &abi_info),
+    PySlot_DATA(Py_mod_gil, Py_MOD_GIL_NOT_USED),
+    PySlot_END,
 };
 
-static PyModuleDef module_def = {PyModuleDef_HEAD_INIT, "_core", nullptr, 0,
-                                 methods,               slots};
-
-PyMODINIT_FUNC PyInit__core() { return PyModuleDef_Init(&module_def); }
+PyMODEXPORT_FUNC PyModExport__core(void) { return slots; }
