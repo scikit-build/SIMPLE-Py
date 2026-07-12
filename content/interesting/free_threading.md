@@ -75,8 +75,8 @@ a warning) to keep that extension safe --- so every extension in your process
 has to be free-threading-aware, or nobody gets the speedup.
 
 The compute is identical to the pure version, just in C++. The interesting part
-is the one line that marks the module as GIL-free --- and it differs between the
-two tools:
+is the line that marks the module as GIL-free --- and each tool does it
+differently:
 
 ::::{tab-set}
 
@@ -105,6 +105,20 @@ unchanged:
 
 :::
 
+:::{tab-item} C API
+:sync: capi
+
+With the raw C API nothing is generated for you: you write the argument
+conversion, method table, and module definition by hand, and opt in with a
+`Py_mod_gil` slot (slots require multi-phase initialization,
+[PEP 489](https://peps.python.org/pep-0489/)):
+
+```{literalinclude} ../../examples/6_01_free_threading/capi/freecomputepi/_core.cpp
+:language: cpp
+```
+
+:::
+
 ::::
 
 :::{note}
@@ -114,9 +128,6 @@ CPython your extension has no unguarded shared state. Our `pi` only uses local
 variables, so it's safe --- but a function with global caches or shared buffers
 would need real locking (`std::mutex`, atomics, or nanobind's `nb::ft_mutex`)
 before making that promise.
-
-With the raw C API you make the same promise with a module slot:
-`{Py_mod_gil, Py_MOD_GIL_NOT_USED}`.
 :::
 
 A thin Python wrapper spreads the work over a thread pool, exactly as the pure
@@ -129,8 +140,9 @@ version did --- it just imports `pi` from the compiled `_core` instead:
 ### Build configuration
 
 The CMake is a standard scikit-build-core extension build. nanobind is where the
-free-threading opt-in lives (`FREE_THREADED`); pybind11 needs nothing special
-here:
+free-threading opt-in lives (`FREE_THREADED`); the others need nothing special
+here. The C API version uses FindPython's `python_add_library` instead of a
+binding tool's wrapper:
 
 ::::{tab-set}
 
@@ -152,9 +164,19 @@ here:
 
 :::
 
+:::{tab-item} C API
+:sync: capi
+
+```{literalinclude} ../../examples/6_01_free_threading/capi/CMakeLists.txt
+:language: cmake
+```
+
+:::
+
 ::::
 
-The `pyproject.toml` differs only in the binding tool it requires:
+The `pyproject.toml` differs only in the binding tool it requires (the C API
+version needs none):
 
 ::::{tab-set}
 
@@ -171,6 +193,15 @@ The `pyproject.toml` differs only in the binding tool it requires:
 :sync: nanobind
 
 ```{literalinclude} ../../examples/6_01_free_threading/nanobind/pyproject.toml
+:language: toml
+```
+
+:::
+
+:::{tab-item} C API
+:sync: capi
+
+```{literalinclude} ../../examples/6_01_free_threading/capi/pyproject.toml
 :language: toml
 ```
 
@@ -195,8 +226,8 @@ Python 3.14.6, GIL disabled
 ```
 
 Same near-linear scaling as pure Python, but an order of magnitude faster per
-thread. pybind11 and nanobind produce identical timings --- the choice is about
-the binding style, not the parallelism.
+thread. All three compiled versions produce identical timings --- the choice is
+about the binding style, not the parallelism.
 
 ## Building wheels
 
