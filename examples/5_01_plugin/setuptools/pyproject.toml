@@ -1,0 +1,20 @@
+[build-system]
+requires = ["scikit-build-core[setuptools]>=1"]
+build-backend = "scikit_build_core.setuptools.build_meta"
+
+[project]
+name = "setuptools_example"
+version = "0.1.0"
+
+# cmake.source-dir activates the setuptools plugin for this package
+[tool.scikit-build]
+cmake.source-dir = "."
+editable.mode = "inplace"
+
+# Rebuild the editable install when the build config or C sources change
+[tool.uv]
+cache-keys = [
+    { file = "pyproject.toml" },
+    { file = "CMakeLists.txt" },
+    { file = "src/**/*.c" },
+]
