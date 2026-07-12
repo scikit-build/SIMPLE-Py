@@ -4,7 +4,7 @@ project:
   title: SIMPLE-Py
   description: A workshop that introduces simple compiled packaging
   keywords: [Python, compiled, packaging, C++, Rust, publishing]
-  authors: [Henry Schreiner]
+  authors: [Henry Schreiner, Cristian Le, Matthew Feickert, Matt McCormick]
   github: https://github.com/scikit-build/SIMPLE-Py
   jupyter: false
   toc:
