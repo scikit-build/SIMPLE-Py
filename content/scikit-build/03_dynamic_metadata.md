@@ -4,6 +4,8 @@ authors: [Cristian Le]
 
 # Dynamic Metadata
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/4_03_dynamic_metadata>`
+
 A method to handle `project.dynamic` fields generically.
 The [specification] is generic, but currently, it is a feature used only in scikit-build-core.
 I.e. for now you must use

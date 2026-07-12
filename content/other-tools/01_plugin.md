@@ -1,5 +1,7 @@
 # Using scikit-build-core as a plugin
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/5_01_plugin>`
+
 Scikit-build-core is primarily a native build-backend, but you can also use it
 to create plugins for other build backends. We have two built-in: hatchling
 and setuptools. Hatchling was added by popular request, and setuptools exists

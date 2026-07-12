@@ -4,6 +4,8 @@ authors: [Cristian Le]
 
 # The override system
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/4_05_overrides>`
+
 ## The basics
 
 This allows you to _override_ the settings in `[tool.scikit-build]` based on the environment that is building the package.

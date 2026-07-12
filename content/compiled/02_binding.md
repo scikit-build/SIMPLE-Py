@@ -1,5 +1,7 @@
 # Binding tools
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/2_02_binding>`
+
 Let's take a deeper look at binding tools. We'll focus on pybind11 and nanobind. These are:
 
 * No dependencies required
