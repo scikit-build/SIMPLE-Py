@@ -489,7 +489,7 @@ Add the `abi3-py310` feature (or another version floor) to the `pyo3` dependency
 
 Nobody builds a wheel matrix by hand.
 `maturin generate-ci github` prints a complete GitHub Actions release workflow &mdash; platform matrix, manylinux-compliant build containers, an sdist, and PyPI upload via trusted publishing &mdash; ready to drop into `.github/workflows/`.
-Alternatively, [cibuildwheel](./03_cibuildwheel.md) supports maturin projects too: if your CI already revolves around it, it will happily build your Rust wheels alongside everything else.
+Alternatively, [cibuildwheel](./04_cibuildwheel.md) supports maturin projects too: if your CI already revolves around it, it will happily build your Rust wheels alongside everything else.
 
 ## Try it yourself
 

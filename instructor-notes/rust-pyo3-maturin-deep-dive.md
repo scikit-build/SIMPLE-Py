@@ -323,11 +323,15 @@ Python tree. Teach pure; slide the mixed layout as "what you'll see in the wild.
   is the practical floor for Rust** (rustc needs glibc ≥2.17). maturin bundles an
   auditwheel reimplementation and tags wheels correctly by itself; the
   `ghcr.io/pyo3/maturin` container is the turnkey compliant build environment.
-- **The built-in teaching hook (verified locally):** the wheel produced inside the
-  pixi env is tagged `linux_x86_64`, *not* manylinux - a conda env's glibc doesn't
-  satisfy the policy. It installs fine locally; PyPI would reject it. One
-  contrast slide gets attendees from "it works on my machine" to "this is why CI
-  builds release wheels."
+- **The built-in teaching hook (verified locally):** `maturin develop` builds a
+  throwaway wheel tagged `linux_x86_64`, *not* manylinux - `develop` skips the
+  auditwheel/manylinux relabel because it only ever installs into the local env.
+  It installs fine locally; PyPI would reject that tag. Run `maturin build
+  --release` in the *same* pixi env and it does audit the binary and emits
+  `manylinux_2_28_x86_64` (the chapter transcript shows exactly this), so the
+  contrast to draw is develop-vs-build, not "the conda env's glibc fails the
+  policy" - it plainly passes. One contrast slide gets attendees from "it works
+  on my machine" to "this is why CI builds release wheels."
 - **abi3:** enabling PyO3's `abi3-py3X` feature makes maturin emit a
   `cp3X-abi3` wheel - one wheel per platform for all CPython ≥ the floor, at some
   API/performance cost (limits in [[pyo3-current-state]]). One build selects one
