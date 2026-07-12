@@ -112,7 +112,7 @@ The compute moves to C++ — the opt-in is the interesting one line.
 
 ---
 
-## Compiled: two ways to opt in
+## Compiled: opting in with a binding tool
 
 <div class="columns">
 <div>
@@ -149,6 +149,29 @@ faster per thread** (`0.26 s → 0.07 s`, 1→8 threads).
 
 ---
 
+## Opting in with the raw C API (3.15)
+
+No wrapper writes anything for you. In Python 3.15, the module export is a
+**slot array** returned from a hook ([PEP 793](https://peps.python.org/pep-0793/)):
+
+```cpp
+static PySlot slots[] = {
+    PySlot_STATIC_DATA(Py_mod_name, (void *)"_core"),
+    PySlot_STATIC_DATA(Py_mod_methods, methods),
+    PySlot_DATA(Py_mod_abi, &abi_info),
+    PySlot_DATA(Py_mod_gil, Py_MOD_GIL_NOT_USED),  // ← the opt-in
+    PySlot_END,
+};
+
+PyMODEXPORT_FUNC PyModExport__core(void) { return slots; }
+```
+
+Bonus: 3.15's **stable ABI** covers free-threaded builds
+([PEP 803](https://peps.python.org/pep-0803/)) — one `_core.abi3t.so` keeps
+working on future `t` Pythons.
+
+---
+
 ## A promise, not a shield
 
 Declaring the module GIL-free tells CPython **"I have no unguarded shared
@@ -158,8 +181,7 @@ state."**
 - Global caches or shared buffers → need real locking first
   - `std::mutex`, atomics, or nanobind's `nb::ft_mutex`
 
-Raw C API makes the same promise with a slot:
-`{Py_mod_gil, Py_MOD_GIL_NOT_USED}`.
+Every opt-in above — macro, CMake flag, or slot — makes the **same promise**.
 
 ---
 
@@ -185,6 +207,7 @@ Free-threaded users automatically get the `t` wheel.
   it optional — fast in **3.14t**
 - **Pure Python** threads finally scale across cores without the GIL
 - **Compiled** extensions must **opt in**, or importing them turns the GIL back on
-  - pybind11: `py::mod_gil_not_used()` · nanobind: `FREE_THREADED`
+  - pybind11: `py::mod_gil_not_used()` · nanobind: `FREE_THREADED` · C API:
+    `Py_mod_gil` slot (3.15 export, stable-ABI `abi3t` capable)
 - The opt-in is a **promise** — guard any shared state before making it
 - Ship it with cibuildwheel's **`cp314*`** for both regular and `cp314t` wheels

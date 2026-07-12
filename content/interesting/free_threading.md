@@ -109,9 +109,13 @@ unchanged:
 :sync: capi
 
 With the raw C API nothing is generated for you: you write the argument
-conversion, method table, and module definition by hand, and opt in with a
-`Py_mod_gil` slot (slots require multi-phase initialization,
-[PEP 489](https://peps.python.org/pep-0489/)):
+conversion, the method table, and the module export by hand. This version
+targets Python 3.15, where the module export is a slot array returned from a
+`PyModExport_<name>` hook ([PEP 793](https://peps.python.org/pep-0793/)), and
+`Py_mod_gil` is the opt-in slot. Since 3.15's stable ABI also gains
+free-threading support ([PEP 803](https://peps.python.org/pep-0803/)), the
+module builds against the limited API, producing a single `_core.abi3t.so`
+that future free-threaded Pythons can load without recompiling:
 
 ```{literalinclude} ../../examples/6_01_free_threading/capi/freecomputepi/_core.cpp
 :language: cpp
@@ -142,7 +146,8 @@ version did --- it just imports `pi` from the compiled `_core` instead:
 The CMake is a standard scikit-build-core extension build. nanobind is where the
 free-threading opt-in lives (`FREE_THREADED`); the others need nothing special
 here. The C API version uses FindPython's `python_add_library` instead of a
-binding tool's wrapper:
+binding tool's wrapper, with `USE_SABI 3.15` (and the `Development.SABIModule`
+component) selecting the limited API for the stable-ABI build:
 
 ::::{tab-set}
 
@@ -175,8 +180,8 @@ binding tool's wrapper:
 
 ::::
 
-The `pyproject.toml` differs only in the binding tool it requires (the C API
-version needs none):
+The `pyproject.toml` differs only in the binding tool it requires --- the C API
+version needs none, though it requires Python 3.15 for the new module export:
 
 ::::{tab-set}
 
@@ -211,7 +216,8 @@ version needs none):
 
 ### Build and run
 
-`uv run` builds the extension and runs the same benchmark:
+`uv run` builds the extension and runs the same benchmark (use `--python 3.15t`
+for the C API version):
 
 ```bash
 uv run --python 3.14t sample.py
@@ -242,6 +248,7 @@ build = "cp314*"
 ```
 
 The `cp314*` pattern matches both the `cp314` and `cp314t` identifiers, so each
-job emits both a normal and a free-threaded wheel. Users on a free-threaded
+job emits both a normal and a free-threaded wheel (the 3.15-only C API example
+uses `cp315*` the same way). Users on a free-threaded
 interpreter automatically get the `t` wheel; the GIL stays off, and their
 threads finally use every core.
