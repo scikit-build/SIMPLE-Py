@@ -64,6 +64,14 @@ Lorem ipsum
 %autochangelog
 ```
 
+:::{dropdown} Or you can start from a no-op spec file and build up
+
+```{literalinclude} ../../examples/5_04_distros/foo.spec
+:language: rpmspec
+```
+
+:::
+
 Packit is a service available as a GitHub app and on GitLab, but can be extended upon request.
 There are some [onboarding steps] to follow, after which you get distro builds in your upstream project.
 
