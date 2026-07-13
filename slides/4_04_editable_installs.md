@@ -23,7 +23,7 @@ _paginate: skip
 
 - Edit C/C++/CMake source files
 - Changes show up 🙂
-  * Since 1.0: just call `<pkg>.__loader__.rebuild()` 😉
+  - Since 1.0: just call `<pkg>.__loader__.rebuild()` 😉
 
 ---
 
@@ -99,12 +99,12 @@ Off to the races!
 
 # Actually forget about: `inplace`
 
-* If you think you need it
-  * Do you really need it?
-* If you sure you need it
-  * Have you exhausted all options?
-* `inplace` is really what you want
-  * Why?
+- If you think you need it
+  - Do you really need it?
+- If you sure you need it
+  - Have you exhausted all options?
+- `inplace` is really what you want
+  - Why?
 
 ---
 
@@ -114,7 +114,7 @@ Off to the races!
   - `CMakeCache.txt` etc.
   - We cannot help you delete build files
 - You have to put build artifacts in correct place
-* Since 1.0: try `edtiable.rebuild-dir` instead
+- Since 1.0: try `edtiable.rebuild-dir` instead
 
 ---
 

@@ -14,11 +14,11 @@ _paginate: skip
 # What is a conda package?
 
 - A zip compressed archive (`.conda`) with two `.tar.zst` archives inside
-  * One with the package files
-  * One with the metadata (JSON: structure, provenance, dependencies)
+  - One with the package files
+  - One with the metadata (JSON: structure, provenance, dependencies)
 - Relocatable, **platform-specific binaries**
 - Simple yet general and **language agnostic**
-  * Effectively any software can be a conda package
+  - Effectively any software can be a conda package
 
 ---
 
@@ -40,7 +40,7 @@ Operating system + architecture combinations:
 # Building a conda package
 
 - Packages are defined by a recipe: `recipe.yaml`
-  * Jinja2 templating, robust schema
+  - Jinja2 templating, robust schema
 - Recipes are built into packages with [`rattler-build`](https://rattler-build.prefix.dev/)
 
 ```bash
@@ -163,7 +163,7 @@ extra:
 - Compilers come from conda packages, not your system
 - Cross-compilation supported, but native runners now exist for
   `linux-aarch64`, `osx-arm64`, and `win-arm64`
-  * Unless you target something niche (`linux-ppc64le`), you may not
+  - Unless you target something niche (`linux-ppc64le`), you may not
     need cross-compilation at all
 
 ---
@@ -230,13 +230,13 @@ requirements:
 1. Fork and clone `conda-forge/staged-recipes`
 2. Branch from `upstream/main`
 3. Create the recipe at `./recipes/<package name>/`
-   * On PyPI already? Generate it with `grayskull`:
+   - On PyPI already? Generate it with `grayskull`:
 
      ```bash
      pixi run pypi boost-histogram
      ```
 
-   * Otherwise, copy `./recipes/example-v1` and edit `recipe.yaml`
+   - Otherwise, copy `./recipes/example-v1` and edit `recipe.yaml`
 
 ---
 
@@ -245,8 +245,8 @@ requirements:
 4. Lint the recipe: `pixi run lint`
 5. Test build locally: `pixi run <build-linux|build-osx|build-win>`
 6. Push and open a **draft** PR; when green, ping a review team:
-   * `@conda-forge/help-python, ready for review!` (pure Python)
-   * `@conda-forge/help-python-c, ready for review!` (compiled)
+   - `@conda-forge/help-python, ready for review!` (pure Python)
+   - `@conda-forge/help-python-c, ready for review!` (compiled)
 7. On merge, automation creates your feedstock and maintainer team,
    and packages upload to `anaconda.org/channels/conda-forge`
 

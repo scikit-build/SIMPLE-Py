@@ -14,13 +14,13 @@ _paginate: skip
 ## Is it still valuable?
 
 - What about `conda`, `spack`, etc.?
-  * Does not have extensive testing, vulnerability tracking, etc.
+  - Does not have extensive testing, vulnerability tracking, etc.
 - Are traditional packaging dying?
-  * Not for non-gui apps/libraries
-  * Still valuable even if you have a flatpak app
+  - Not for non-gui apps/libraries
+  - Still valuable even if you have a flatpak app
 - Isn't it a big commitment?
-  * Not for you, that's the packager's job
-  * Your only job is be open and communicate
+  - Not for you, that's the packager's job
+  - Your only job is be open and communicate
 
 ---
 

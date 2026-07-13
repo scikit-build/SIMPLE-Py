@@ -12,8 +12,8 @@ _paginate: skip
 ---
 
 - `setuptools-scm` is cool
-* Wanted even more control?
-* Wanted to inject your own helpers?
+- Wanted even more control?
+- Wanted to inject your own helpers?
 
 ---
 
