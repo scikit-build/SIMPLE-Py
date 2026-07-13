@@ -406,8 +406,8 @@ environment's `bin/`. Using `__main__.py` as the file also makes
 Give your package the full metadata above (adjust the author!), plus the
 `rescale` script. Then:
 
-1. Check the metadata with `uv run --refresh-package rescale uv pip show -v rescale`
-   (or `uv pip show -v rescale` if you installed manually).
+1. Check the metadata with `uv run --refresh-package rescale --with pip pip show -v rescale`
+   (or `uv run --with pip pip show -v rescale` if you installed manually).
 2. Run your new command: it's an app in your venv, so `uv run rescale 1 2 3`.
 
 :::
@@ -418,7 +418,7 @@ Give your package the full metadata above (adjust the author!), plus the
 ```bash
 uv run rescale 1 2 3
 [0.  0.5 1. ]
-uv pip show -v rescale
+uv run --with pip pip show -v rescale
 Name: rescale
 Version: 0.1.0
 Summary: Rescale NumPy arrays to span [0, 1].
@@ -588,7 +588,7 @@ echo "src/rescale/_version.py" >> .gitignore
 git add -A && git commit -m "docs: add README, LICENSE, gitignore"
 ```
 
-`uv pip show -v rescale` should now show your readme-derived description
+`uv run --with pip pip show -v rescale` should now show your readme-derived description
 metadata, and `git status` should be quiet even after running tests.
 
 :::

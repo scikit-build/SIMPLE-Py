@@ -44,7 +44,7 @@ Lorem ipsum
 %autosetup -n foo-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

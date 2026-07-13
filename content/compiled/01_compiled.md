@@ -389,7 +389,7 @@ uv build --sdist
 ```
 
 To see what's in your SDist, use `tar -tf dist/*.tar.gz`. To measure what's in
-your SDist against git as a source of truth, you can use `uvx check-dist`.
+your SDist against git as a source of truth, you can use `uvx check-sdist`.
 It's really useful for flit-core/setuptools, less so for scikit-build-core and
 hatchling, due to the fact they tend to map to git by default.
 

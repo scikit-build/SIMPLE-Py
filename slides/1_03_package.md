@@ -282,7 +282,7 @@ def main() -> None: ...
 
 - Add the full metadata (adjust the author!)
 - Add the `rescale` script entry point
-- Inspect: `uv pip show -v rescale`
+- Inspect: `uv run --with pip pip show -v rescale`
 - Run it: `uv run rescale 1 2 3`
 
 Stale metadata? uv cached the old build:

@@ -147,7 +147,7 @@ dynamic = ["version"]
 [[tool.dynamic-metadata]]
 provider = "scikit_build_core.metadata.template"
 field = "dependencies"
-result = ["mypackage-core == {project['version']}"]
+result = ["mypackage-core == {project[version]}"]
 ```
 
 - dynamic field: any, specify in `field`
@@ -335,7 +335,7 @@ provider = "scikit_build_core.metadata.setuptools_scm"
 [[tool.dynamic-metadata]]
 provider = "scikit_build_core.metadata.template"
 field = "dependencies"
-result = ["mypackage-core == {project['version']}"]
+result = ["mypackage-core == {project[version]}"]
 
 [tool.setuptools_scm]
 ```

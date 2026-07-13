@@ -136,9 +136,9 @@ Off to the races!
 
 ```pycon
 >>> from pathlib import Path
->>> lib = Path(__file__) / "../my_lib.so"
+>>> lib = Path(__file__).parent / "my_lib.so"
 >>> lib.open()
-NotADirectoryError: [Errno 20] Not a directory: 'test.py/../my_lib.so'
+FileNotFoundError: [Errno 2] No such file or directory: 'my_lib.so'
 ```
 
 `my_lib.so` is in `build-dir`, `test.py` is in `source-dir`

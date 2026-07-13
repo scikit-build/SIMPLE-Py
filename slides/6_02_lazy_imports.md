@@ -22,7 +22,9 @@ import numpy  # loaded even for `--help`
 
 
 def main():
-    args = argparse.ArgumentParser().parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--foo", action="store_true")
+    args = parser.parse_args()
     if args.foo:
         print(numpy.array([1, 2, 3]))
 ```

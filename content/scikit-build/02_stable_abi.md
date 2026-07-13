@@ -121,7 +121,7 @@ Then you need to add it:
 
 ```cmake
 if(NOT "${SKBUILD_SABI_VERSION}" STREQUAL "")
-  set(USE_SABI "USE_SABI ${SKBUILD_SABI_VERSION}")
+  set(USE_SABI USE_SABI ${SKBUILD_SABI_VERSION})
 endif()
 
 python_add_library(some_ext MODULE WITH_SOABI ${USE_SABI} ...)

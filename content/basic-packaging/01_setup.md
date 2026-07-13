@@ -316,7 +316,7 @@ When you run it:
 :::{tab-item} uv
 
 ```bash
-uv run single.py
+uv run simple.py
 ```
 
 :::
@@ -324,7 +324,7 @@ uv run single.py
 :::{tab-item} pipx
 
 ```bash
-pipx run single.py
+pipx run simple.py
 ```
 
 :::

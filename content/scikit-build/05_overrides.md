@@ -51,7 +51,7 @@ The current `if.*` conditionals available are:
 - `state` (regex): current build state, one of `sdist`, `wheel`, `editable`, `metadata_wheel`, `metadata_editable`
 - `env.*` (regex or bool): environment variables
 - `from-sdist` (bool): whether the build comes from an sdist source
-- `wheel.cmake` (bool): if there are known CMake wheels available for the system
+- `cmake-wheel` (bool): if there are known CMake wheels available for the system
 - `failed` (bool): whether a build has failed, used to try again with other options
 
 where the `regex`, `version`, `bool` conditionals check if the variable match the provided regex pattern,

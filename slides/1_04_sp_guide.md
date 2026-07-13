@@ -85,7 +85,7 @@ you fix deprecations _before_ your users hit them.
 **Approx** — fuzzy compares (works on NumPy arrays):
 
 ```python
-assert 1 / 3 == approx(0.333333)
+assert 1 / 3 == approx(0.3333333333333)
 ```
 
 **Raises** — test that errors _do_ fire:

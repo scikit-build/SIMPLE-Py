@@ -64,9 +64,9 @@ You cannot rely on patterns like `__file__` to navigate to
 
 ```{code} python
 >>> from pathlib import Path
->>> lib = Path(__file__) / "../my_lib.so"
+>>> lib = Path(__file__).parent / "my_lib.so"
 >>> lib.open()
-NotADirectoryError: [Errno 20] Not a directory: 'test.py/../my_lib.so'
+FileNotFoundError: [Errno 2] No such file or directory: 'my_lib.so'
 ```
 
 Instead use `importlib.resources.files`
