@@ -40,7 +40,7 @@ sdist.include = ["src/package/_version.py"]
 provider = "scikit_build_core.metadata.setuptools_scm"
 
 [tool.setuptools_scm]  # Section required
-write_to = "src/package/_version.py"
+version_file = "src/package/_version.py"
 ```
 
 :::
@@ -59,7 +59,7 @@ sdist.include = ["src/package/_version.py"]
 metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
 
 [tool.setuptools_scm]  # Section required
-write_to = "src/package/_version.py"
+version_file = "src/package/_version.py"
 ```
 
 :::
@@ -73,7 +73,7 @@ write_to = "src/package/_version.py"
 - Configure all other (arbitrary) keys that the provider consumes in `tool.dynamic-metadata` or other `tool.*`
 - Profit?
 
-[^1]: With PEP808 you can have mixed static and dynamic fields for table and array fields like `dependencies`, `scripts`
+[^1]: With PEP 808 you can have mixed static and dynamic fields for table and array fields like `dependencies`, `scripts`
 
 ## Pre-defined plugins
 
@@ -264,7 +264,7 @@ path = "README.md"
 - inputs:
   - `text`: A literal text
   - `path`: A file to read
-  - `content-type`: The readme content (default: `text/markdown`)
+  - `content-type`: The readme content type (default: `text/markdown`)
   - `start-after`, `end-before`: Markers indicating the content (exclusive)
   - `start-at`, `end-at`: Markers indicating the content (inclusive)
   - `pattern`: A regex pattern to capture the fragment

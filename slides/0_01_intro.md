@@ -20,7 +20,7 @@ Some logistics:
 
 - Everyone should have gotten a badge
 - We'll be sharing catering with SciPy tutorials
-- We have enough left over funds for a workshop dinner (need to find a place!)
+- We have enough leftover funds for a workshop dinner (need to find a place!)
 
 
 ---
@@ -34,7 +34,7 @@ Some logistics:
 It's hard to target everyone! So let's try a few things:
 
 - Focus on interactivity - questions and talking is good (workshop)
-- Will have a mix of overviews and indepth dives
+- Will have a mix of overviews and in-depth dives
 - Everyone might see some new stuff!
 - Groups can break out to work on stuff if you want
 

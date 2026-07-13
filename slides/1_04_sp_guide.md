@@ -279,7 +279,7 @@ The guide keeps going well past this tour:
 ## Using cookie
 
 Rather than assembling all this by hand, **cookie** generates a new package that
-already follows the guide — **eleven** build backends, including the compiled
+already follows the guide — **ten** build backends, including the compiled
 ones (`pybind11`, `scikit-build-core`, `maturin`, …).
 
 <div class="columns">

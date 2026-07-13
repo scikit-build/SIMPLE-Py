@@ -54,7 +54,7 @@ The current `if.*` conditionals available are:
 - `wheel.cmake` (bool): if there are known CMake wheels available for the system
 - `failed` (bool): whether a build has failed, used to try again with other options
 
-where the `regex`, `version`, `bool` conditionals check if the variable match the provided regex pattern,
+where the `regex`, `version`, `bool` conditionals check if the variable matches the provided regex pattern,
 version specifier, boolean state respectively.
 
 Then you provide any variables you would provide for `tool.scikit-build` to override.
@@ -77,7 +77,7 @@ cmake.define.BUILD_MPI = true
 cmake.define.MPI_PROC = "2"
 ```
 
-If environment variable `WITH_MPI` is not defined is equivalent to
+If environment variable `WITH_MPI` is not defined, it is equivalent to
 
 ```toml
 [tool.scikit-build]
@@ -87,7 +87,7 @@ cmake.define.BUILD_TESTS = false
 
 :::
 
-:::{tab-item} no inheirt
+:::{tab-item} no inherit
 
 ```toml
 [tool.scikit-build]

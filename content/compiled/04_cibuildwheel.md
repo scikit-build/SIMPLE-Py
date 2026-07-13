@@ -4,7 +4,7 @@
 
 In the [basic publishing chapter](../basic-packaging/05_publishing_ci.md), one
 job built an SDist and a wheel, and one job uploaded them. If you have
-compiled components, you need slightly more than one wheel::
+compiled components, you need slightly more than one wheel:
 
 $$ 3 \text{ OSs} \times 2 \text{ architectures} \times 5 \text{ CPython versions} = 30 \text{ wheels} $$
 
@@ -55,8 +55,8 @@ build-frontend = "build[uv]"
 
 Other options you'll reach for eventually: `skip` (e.g. `"*musllinux*"` to drop
 musl wheels), and `environment` (set environment variables like compiler flags
-inside the build, linux runs in a container so doesn't see the host's
-environment). See the [options docs][cibw options].
+inside the build; Linux builds run in a container, so they don't see the
+host's environment). See the [options docs][cibw options].
 
 ## Try it locally
 
@@ -244,8 +244,8 @@ fallback) is exactly as described in
 Give your compiled package a `.github/workflows/cd.yml` using the pieces
 above, and add the `[tool.cibuildwheel]` configuration to its
 `pyproject.toml`. If you have it on GitHub, push it to a branch and trigger
-the workflow with the "Run workflow" button (`workflow_dispatch` runs build
-everything but skip the upload); then download the wheels from the run's
+the workflow with the "Run workflow" button (`workflow_dispatch` builds
+everything but skips the upload); then download the wheels from the run's
 artifacts.
 
 :::

@@ -102,9 +102,9 @@ Off to the races!
 
 - If you think you need it
   - Do you really need it?
-- If you sure you need it
+- If you're sure you need it
   - Have you exhausted all options?
-- `inplace` is really what you want
+- If `inplace` is really what you want
   - Why?
 
 ---
@@ -115,7 +115,7 @@ Off to the races!
   - `CMakeCache.txt` etc.
   - We cannot help you delete build files
 - You have to put build artifacts in correct place
-- Since 1.0: try `edtiable.rebuild-dir` instead
+- Since 1.0: try `editable.rebuild-dir` instead
 
 ---
 
@@ -160,7 +160,7 @@ NotADirectoryError: [Errno 20] Not a directory: 'test.py/../my_lib.so'
 ## 1.0 changes
 
 - `<pkg>.__loader__.rebuild()`: rebuild on demand
-- `edtiable.rebuild-dir`: specify where to install
+- `editable.rebuild-dir`: specify where to install
 - `importlib.resources` should work properly (custom implementation)
 
 ---

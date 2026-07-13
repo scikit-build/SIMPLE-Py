@@ -13,7 +13,7 @@ project, or if a project is mostly Python, or if you need to combine plugins
 The plugins reuse the same CMake machinery and the same `[tool.scikit-build]`
 configuration as the standalone backend, so most of what you learned in the
 [scikit-build chapters](../scikit-build/01_custom.md) carries over. The
-difference is who _owns_ the build: the host backend runs the wheel and SDist,
+difference is who _owns_ the build: the host backend builds the wheel and SDist,
 and scikit-build-core contributes the compiled bits as a hook.
 
 ## Hatchling

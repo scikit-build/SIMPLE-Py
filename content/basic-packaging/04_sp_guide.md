@@ -172,7 +172,7 @@ repos:
     rev: "v0.15.18"
     hooks:
       - id: ruff-check
-        args: ["--fix",]
+        args: ["--fix"]
       - id: ruff-format
 ```
 
@@ -330,7 +330,7 @@ The guide keeps going well past this tour. Skim these when the need arises:
 ## Using the cookiecutter
 
 Rather than assembling all of this by hand, [cookie][] generates a new package
-that already follows the guide. It supports **eleven** build backends,
+that already follows the guide. It supports **ten** build backends,
 including the compiled ones (`pybind11`, `scikit-build-core`, `maturin`, …)
 you'll use later in this workshop.
 

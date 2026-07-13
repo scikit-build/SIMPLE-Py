@@ -16,12 +16,12 @@ _class: lead
 
 - What about `conda`, `spack`, etc.?
   - Does not have extensive testing, vulnerability tracking, etc.
-- Are traditional packaging dying?
+- Is traditional packaging dying?
   - Not for non-gui apps/libraries
   - Still valuable even if you have a flatpak app
 - Isn't it a big commitment?
   - Not for you, that's the packager's job
-  - Your only job is be open and communicate
+  - Your only job is to be open and communicate
 
 ---
 
@@ -36,7 +36,7 @@ _class: lead
 
 All you need is
 - `.spec` file: how to build the package
-- `packit` app: does the build shows the result
+- `packit` app: does the build, shows the result
 
 ---
 

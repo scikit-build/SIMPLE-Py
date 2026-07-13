@@ -399,7 +399,7 @@ If you need files from somewhere else, you can use `sdist.force-include`
 :::{note}
 
 * Do your tests go in the SDist? Yes.
-* Do your docs go in the SDist? Ehh. Depends. Kindof.
+* Do your docs go in the SDist? Ehh. Depends. Kind of.
 * Do your CI files go in the SDist? No, but who cares, they are small.
 :::
 

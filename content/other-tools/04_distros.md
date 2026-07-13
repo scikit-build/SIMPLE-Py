@@ -24,7 +24,7 @@ You do not have to be a packager to help with distro packaging.
 Just running the downstream package build in upstream is a huge step towards it.
 If your project is not yet packaged, that's fine, you can do it yourself.
 
-The only files you need to manage is a `.spec` file and enable `packit` configuration[^2].
+The only files you need to manage are a `.spec` file and a `packit` configuration[^2].
 The spec file can be quite minimal and low/no maintenance:
 
 ```rpmspec
@@ -64,8 +64,8 @@ Lorem ipsum
 %autochangelog
 ```
 
-Packit is a service available as a GitHub app and GitLab, but can be extended upon request.
-There are some [onboarding steps] to follow, after which you get distro builds in upstream project.
+Packit is a service available as a GitHub app and on GitLab, but can be extended upon request.
+There are some [onboarding steps] to follow, after which you get distro builds in your upstream project.
 
 ```{image} 04_distros-packit_example.png
 :alt: Packit jobs run in upstream
@@ -81,7 +81,7 @@ There are a bunch of edge-case issues you should not be subjected to.
 :alt: Packaging is dangerous business
 ```
 
-Doing the whole packaging process is a daunting process.
+Doing the whole packaging process yourself is daunting.
 It is best to contact your local neighborhood distro packager.
 You can find some in [#scitech] or [#python] channels in Fedora matrix who also share your interest.
 [#devel] channel is where you find everyone else if you're feeling social.

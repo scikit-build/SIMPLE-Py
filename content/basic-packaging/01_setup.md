@@ -137,7 +137,7 @@ This is really fast, though it's completely empty (no pip). And it defaults to `
 
 We will be using `uv`, which can do a lot of this for us.
 
-[^1]: Distributions may strip it out and make it a separate intallable package.
+[^1]: Distributions may strip it out and make it a separate installable package.
 
 ### Requirements
 
@@ -152,7 +152,7 @@ But a virtual environment is meant to be expendable. You should be able to delet
 :::{card} Project (app)
 These are for making a virtual env. They don't affect libraries.
 
-- **requirement.txt**: Classic, very old format
+- **requirements.txt**: Classic, very old format
   - Basically a list of args to pass to `pip install`
 - **requirements.in**: Manual locking
   - You make a locked requirements.txt from this file
@@ -175,7 +175,7 @@ Most libraries also have developer environments, which follows the "Project
 
 > [!WARNING]
 > For historical reasons, `optional-dependencies` is sometimes used for
-> for these too; this is due to it pre-dating `dependency-groups`.
+> these too; this is due to it pre-dating `dependency-groups`.
 
 :::
 
@@ -245,7 +245,7 @@ This special property allows us to do something interesting. Imagine we:
 
 1. Made a venv somewhere
 2. Installed our application in it
-3. Put _just_ that application somwehere on our PATH
+3. Put _just_ that application somewhere on our PATH
 
 Since we never need to import it, we can get away without activation. This is exactly what `pipx` (pip for executables) and `uv tool` do!
 
@@ -398,7 +398,7 @@ dev = [] # 4
 :::{glossary}
 build-system.requires
 : Requirements that are installed when building distributions. This is your
-build-backend, and anything else require to assemble your package from source.
+build-backend, and anything else required to assemble your package from source.
 These are not available at runtime for users. Noted with `# 1` above.
 
 project.dependencies
@@ -408,7 +408,7 @@ of your package will also install these. Noted with `# 2` above.
 project.optional-dependencies
 : This is a table with arbitrary keys. When a user is installing your package,
 they can add `[extra]` to install the list of dependencies named `extra`.
-These will not neccisarly be present if the user didn't request then. Also
+These will not necessarily be present if the user didn't request them. Also
 known as "extras". These are part of the public package metadata. Noted with
 `# 3` above.
 

@@ -31,11 +31,11 @@ Effectively builds the CMake project with source-dir (`-S`) the same as build-di
 
 :::{warning}
 This mode requires _you_ to setup the CMake build to put the build artifacts in the correct place relative to the source.
-::::
+:::
 
 ## Scikit-build-core 1.0 tricks and tips
 
-Use can now rebuild the CMake project on demand with
+You can now rebuild the CMake project on demand with
 
 ```{code} python
 :linenos:
@@ -59,8 +59,8 @@ uv sync --no-build-isolation
 
 ### Use `importlib.resources`
 
-Inherently `redirect` editable mode behaves like a namespaced package, i.e. sources are in multiple locations.
-You cannot rely on patterns like `__file__` to navigate to
+Inherently `redirect` editable mode behaves like a namespace package, i.e. sources are in multiple locations.
+You cannot rely on patterns like `__file__` to navigate to files in your package.
 
 ```{code} python
 >>> from pathlib import Path
