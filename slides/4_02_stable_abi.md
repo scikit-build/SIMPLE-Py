@@ -3,6 +3,7 @@ marp: true
 theme: simplepy
 paginate: true
 _paginate: skip
+_class: lead
 ---
 
 # SIMPLE-Py
