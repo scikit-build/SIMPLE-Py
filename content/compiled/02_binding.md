@@ -29,7 +29,7 @@ Other choices include:
 Before we tackle a real library, let's see the binding patterns on a couple of
 toy classes.
 
-pybind11 is similar to Boost::Python, but much easier to build: it's pure C++17
+pybind11 is similar to Boost::Python, but much easier to build: it's pure C++11
 with no dependencies, no preprocessing step, and no new language to learn. It's
 used in projects like SciPy, PyTorch, boost-histogram, and GooFit (including for
 CUDA). The main downside is that it's a little verbose -- but that verbosity buys
