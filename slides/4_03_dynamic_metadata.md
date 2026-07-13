@@ -64,7 +64,7 @@ name = "mypackage"
 dynamic = ["dependencies"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.pin_installed"
+provider = "dynamic_metadata.pin_installed"
 packages = ["torch==x.x.*"]
 ```
 

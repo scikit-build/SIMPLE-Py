@@ -110,7 +110,7 @@ See [setuptools-scm]
 
 :::
 
-:::{tab-item} `(scikit_build_core.metadata|dynamic_metadata.plugins).regex`
+:::{tab-item} `(scikit_build_core.metadata|dynamic_metadata).regex`
 
 Format a field from a regex search of a file
 
@@ -135,7 +135,7 @@ input = "src/package/_version.py"
 
 :::
 
-:::{tab-item} `(scikit_build_core.metadata|dynamic_metadata.plugins).template`
+:::{tab-item} `(scikit_build_core.metadata|dynamic_metadata).template`
 
 Format a field from other values in `project` table
 
@@ -181,7 +181,7 @@ See [hatch-fancy-pypi-readme]
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.ast`
+:::{tab-item} `dynamic_metadata.ast`
 
 Parse a Python file and use a variable
 
@@ -191,7 +191,7 @@ name = "mypackage"
 dynamic = ["version"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.ast"
+provider = "dynamic_metadata.ast"
 field = "version"
 input = "src/my_package/__init__.py"
 name = "__version__"
@@ -205,7 +205,7 @@ name = "__version__"
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.from_file`
+:::{tab-item} `dynamic_metadata.from_file`
 
 Read a file and pass it to the field
 
@@ -215,7 +215,7 @@ name = "mypackage"
 dynamic = ["dependencies"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.from_file"
+provider = "dynamic_metadata.from_file"
 field = "dependencies"
 path = "requirements.txt"
 ```
@@ -227,7 +227,7 @@ path = "requirements.txt"
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.static`
+:::{tab-item} `dynamic_metadata.static`
 
 Set the field statically
 
@@ -237,7 +237,7 @@ name = "mypackage"
 dynamic = ["version"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.static"
+provider = "dynamic_metadata.static"
 version = "1.2.3"
 ```
 
@@ -246,7 +246,7 @@ version = "1.2.3"
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.readme_fragment`
+:::{tab-item} `dynamic_metadata.readme_fragment`
 
 Build a readme from multiple fragments
 
@@ -256,7 +256,7 @@ name = "mypackage"
 dynamic = ["readme"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.readme_fragment"
+provider = "dynamic_metadata.readme_fragment"
 path = "README.md"
 ```
 
@@ -271,7 +271,7 @@ path = "README.md"
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.pin_installed`
+:::{tab-item} `dynamic_metadata.pin_installed`
 
 Pin the runtime dependencies to the versions in `build-system.requires`
 
@@ -281,7 +281,7 @@ name = "mypackage"
 dynamic = ["dependencies"]
 
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.pin_installed"
+provider = "dynamic_metadata.pin_installed"
 packages = ["torch==x.x.*"]
 ```
 
@@ -291,13 +291,13 @@ packages = ["torch==x.x.*"]
 
 :::
 
-:::{tab-item} `dynamic_metadata.plugins.substitute`
+:::{tab-item} `dynamic_metadata.substitute`
 
 Apply a regex substitution on the field previously generated
 
 ```toml
 [[tool.dynamic-metadata]]
-provider = "dynamic_metadata.plugins.substitute"
+provider = "dynamic_metadata.substitute"
 field = "readme"
 pattern = "#(\\d+)"
 replacement = "[#\\1](https://github.com/org/repo/issues/\\1)"
