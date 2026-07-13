@@ -1,9 +1,258 @@
 /* @theme simplepy */
 
 @import "default";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap");
+
+:root {
+  --sp-bg: #fbfbfd;
+  --sp-text: #1f2433;
+  --sp-muted: #5b6478;
+  --sp-accent: #4f46e5;
+  --sp-accent-2: #0ea5e9;
+  --sp-code-bg: #232839;
+  --sp-heading: #171c2c;
+}
+
+section {
+  font-family:
+    "Inter",
+    "Segoe UI",
+    -apple-system,
+    sans-serif;
+  font-size: 27px;
+  line-height: 1.45;
+  padding: 64px 72px;
+  color: var(--sp-text);
+  /* First layer is the gradient accent strip along the top edge */
+  background:
+    linear-gradient(90deg, var(--sp-accent), var(--sp-accent-2)) top / 100% 8px
+      no-repeat,
+    radial-gradient(
+      1100px 500px at 100% 0%,
+      rgba(79, 70, 229, 0.05),
+      transparent 60%
+    ),
+    var(--sp-bg);
+}
+
+/* Decks are split between # and ## for slide headings — style them alike */
+h1,
+h2 {
+  color: var(--sp-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1.35em;
+}
+
+section > h1:first-child,
+section > h2:first-child {
+  margin-bottom: 0.7em;
+}
+
+section > h1:first-child::after,
+section > h2:first-child::after {
+  content: "";
+  display: block;
+  width: 1.8em;
+  height: 4px;
+  margin-top: 0.3em;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--sp-accent), var(--sp-accent-2));
+}
+
+h3 {
+  color: var(--sp-heading);
+  font-weight: 700;
+  font-size: 1.05em;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--sp-accent);
+}
+
+strong {
+  color: var(--sp-heading);
+}
+
+ul li::marker,
+ol li::marker {
+  color: var(--sp-accent);
+  font-weight: 700;
+}
+
+blockquote {
+  border-left: 4px solid var(--sp-accent);
+  border-radius: 0 8px 8px 0;
+  background: rgba(79, 70, 229, 0.06);
+  padding: 0.4em 1em;
+  color: var(--sp-muted);
+}
+
+/* Code — dark panels with a One Dark-ish highlight palette */
+code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em;
+  background: rgba(79, 70, 229, 0.09);
+  color: #3730a3;
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  background: var(--sp-code-bg);
+  border-radius: 10px;
+  padding: 0.7em 1em;
+  box-shadow: 0 6px 20px rgba(23, 28, 44, 0.18);
+  line-height: 1.4;
+}
+
+pre code {
+  background: transparent;
+  color: #abb2bf;
+  padding: 0;
+  font-size: 0.82em;
+}
+
+pre .hljs-comment,
+pre .hljs-quote {
+  color: #7f848e;
+  font-style: italic;
+}
+pre .hljs-keyword,
+pre .hljs-selector-tag {
+  color: #c678dd;
+}
+pre .hljs-string,
+pre .hljs-addition {
+  color: #98c379;
+}
+pre .hljs-number,
+pre .hljs-literal,
+pre .hljs-attr,
+pre .hljs-attribute,
+pre .hljs-meta {
+  color: #d19a66;
+}
+pre .hljs-title,
+pre .hljs-function,
+pre .hljs-section,
+pre .hljs-name {
+  color: #61afef;
+}
+pre .hljs-type,
+pre .hljs-class,
+pre .hljs-built_in {
+  color: #e5c07b;
+}
+pre .hljs-variable,
+pre .hljs-deletion,
+pre .hljs-symbol,
+pre .hljs-bullet {
+  color: #e06c75;
+}
+
+/* Tables — clean, striped, no outer border */
+table {
+  border-collapse: collapse;
+  margin: 0.5em auto;
+}
+
+th {
+  background: var(--sp-heading);
+  color: #fff;
+  border: none;
+  padding: 0.35em 0.9em;
+  font-weight: 600;
+}
+
+td {
+  border: none;
+  border-bottom: 1px solid rgba(31, 36, 51, 0.1);
+  padding: 0.35em 0.9em;
+}
+
+tr:nth-child(even) td {
+  background: rgba(79, 70, 229, 0.04);
+}
+
+/* Page number */
+section::after {
+  font-size: 0.55em;
+  color: var(--sp-muted);
+}
 
 .columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
+}
+
+/* Title slides (`_class: lead` in each deck's frontmatter) */
+section.lead {
+  justify-content: center;
+  text-align: center;
+  color: #eef0fa;
+  background:
+    linear-gradient(90deg, var(--sp-accent-2), #a5b4fc) top / 100% 8px no-repeat,
+    radial-gradient(
+      900px 480px at 85% -10%,
+      rgba(14, 165, 233, 0.35),
+      transparent 65%
+    ),
+    radial-gradient(
+      700px 500px at 0% 110%,
+      rgba(129, 140, 248, 0.3),
+      transparent 60%
+    ),
+    linear-gradient(140deg, #171c2c 0%, #1e1b4b 55%, #312e81 100%);
+}
+
+section.lead h1 {
+  color: #fff;
+  font-size: 2.3em;
+  margin-bottom: 0.2em;
+}
+
+section.lead h1::after {
+  content: "";
+  display: block;
+  width: 2.2em;
+  height: 5px;
+  margin: 0.25em auto 0;
+  border-radius: 2.5px;
+  background: linear-gradient(90deg, var(--sp-accent-2), #a5b4fc);
+}
+
+section.lead h2 {
+  color: rgba(238, 240, 250, 0.85);
+  font-weight: 600;
+  font-size: 1.15em;
+}
+
+section.lead a {
+  color: #7dd3fc;
+}
+
+section.lead strong {
+  color: rgba(238, 240, 250, 0.9);
+}
+
+/* Fine print on title slides, e.g. funding acknowledgements */
+section.lead em {
+  font-size: 0.7em;
+  color: rgba(238, 240, 250, 0.55);
+}
+
+section.lead code {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e0e7ff;
 }
