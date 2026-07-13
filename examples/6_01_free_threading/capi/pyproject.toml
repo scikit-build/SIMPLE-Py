@@ -11,6 +11,7 @@ requires-python = ">=3.15"
 # Build a single stable-ABI free-threaded wheel (cp315-abi3t) that future
 # free-threaded Pythons can load without recompiling
 wheel.py-api = "cp315t"
+wheel.exclude = ["**.cpp"]
 
 [tool.cibuildwheel]
 build = "cp315*"
