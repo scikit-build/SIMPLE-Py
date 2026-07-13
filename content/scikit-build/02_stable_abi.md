@@ -1,5 +1,7 @@
 # Stable ABI
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/4_02_stable_abi>`
+
 ## Pure wheels
 
 If you've built a pure Python project, you've probably seen wheel names that looked like this:
