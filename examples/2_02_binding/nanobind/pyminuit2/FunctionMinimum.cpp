@@ -1,4 +1,3 @@
-#pragma once
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/string.h>  // std::string return value -> Python str
 

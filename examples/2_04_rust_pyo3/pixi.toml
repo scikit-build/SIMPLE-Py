@@ -24,6 +24,6 @@ depends-on = ["develop-release"]
 
 [dependencies]
 rust = ">=1.85"
-maturin = ">=1.9"
+maturin = ">=1.14"
 python = ">=3.12"
 pytest = ">=8"

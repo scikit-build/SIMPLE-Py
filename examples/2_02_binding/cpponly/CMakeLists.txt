@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26...4.4)
-project(Minuit2SimpleExamle LANGUAGES CXX)
+project(Minuit2SimpleExample LANGUAGES CXX)
 
 include(FetchContent)
 FetchContent_Declare(

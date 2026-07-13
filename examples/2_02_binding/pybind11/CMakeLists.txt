@@ -16,9 +16,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Minuit2)
 
-find_package(pybind11)
+find_package(pybind11 CONFIG REQUIRED)
 
-file(GLOB OUTPUT pyminuit2/*.cpp)
-pybind11_add_module(minuit2 ${OUTPUT})
-target_link_libraries(minuit2 PUBLIC Minuit2::Minuit2)
+file(GLOB SOURCES CONFIGURE_DEPENDS pyminuit2/*.cpp)
+pybind11_add_module(minuit2 ${SOURCES})
+target_link_libraries(minuit2 PRIVATE Minuit2::Minuit2)
 install(TARGETS minuit2 DESTINATION .)

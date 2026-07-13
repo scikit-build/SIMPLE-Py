@@ -15,7 +15,7 @@ void init_MnMigrad(nb::module_ &m) {
         .def("__call__",
              &MnApplication::operator(),
              "Minimize the function, returns a function minimum",
-             nb::arg("maxfcn")    = 0,
+             "maxfcn"_a = 0,
              "tolerance"_a = 0.1);
 
     nb::class_<MnMigrad, MnApplication>(m, "MnMigrad")

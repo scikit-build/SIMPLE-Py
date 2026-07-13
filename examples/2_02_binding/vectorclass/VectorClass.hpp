@@ -7,11 +7,11 @@ class Vector2D {
   public:
     Vector2D(double x, double y) : x(x), y(y) {}
 
-    float get_x() const { return x; }
-    float get_y() const { return y; }
+    double get_x() const { return x; }
+    double get_y() const { return y; }
 
-    void set_x(float val) { x = val; }
-    void set_y(float val) { y = val; }
+    void set_x(double val) { x = val; }
+    void set_y(double val) { y = val; }
 
     Vector2D &operator+=(const Vector2D &other) {
         x += other.x;

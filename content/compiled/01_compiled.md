@@ -71,8 +71,9 @@ NB_MODULE(collatz, m) {
 ::::
 
 We'll stick with pybind11 for this chapter. The [next chapter](./02_binding.md)
-compares the binding tools (including Rust via PyO3) in depth; here we care
-about the _packaging_ around them, which is the same either way.
+compares the binding tools in depth, and the following chapter covers Rust via
+PyO3; here we care about the _packaging_ around them, which is the same either
+way.
 
 Now, you need a `pyproject.toml`. We use `scikit-build-core` as the build
 backend, and list `pybind11` so CMake can find it while building:

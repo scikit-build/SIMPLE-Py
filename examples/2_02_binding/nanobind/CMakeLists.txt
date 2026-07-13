@@ -16,10 +16,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Minuit2)
 
-find_package(Python 3.8 REQUIRED COMPONENTS Interpreter Development.Module)
+find_package(Python 3.9 REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(nanobind CONFIG REQUIRED)
 
-file(GLOB OUTPUT pyminuit2/*.cpp)
-nanobind_add_module(minuit2 ${OUTPUT})
-target_link_libraries(minuit2 PUBLIC Minuit2::Minuit2)
+file(GLOB SOURCES CONFIGURE_DEPENDS pyminuit2/*.cpp)
+nanobind_add_module(minuit2 ${SOURCES})
+target_link_libraries(minuit2 PRIVATE Minuit2::Minuit2)
 install(TARGETS minuit2 DESTINATION .)
