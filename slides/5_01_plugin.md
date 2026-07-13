@@ -42,7 +42,7 @@ Starting fresh with a primarily compiled extension? The standalone
 
 ```toml
 [build-system]
-requires = ["scikit-build-core[hatchling]"]
+requires = ["scikit-build-core[hatchling]>=1"]
 build-backend = "hatchling.build"
 
 [project]
@@ -131,7 +131,7 @@ Exactly what you'd write for the standalone backend.
 
 ```toml
 [build-system]
-requires = ["scikit-build-core[setuptools]"]
+requires = ["scikit-build-core[setuptools]>=1"]
 build-backend = "scikit_build_core.setuptools.build_meta"
 ```
 

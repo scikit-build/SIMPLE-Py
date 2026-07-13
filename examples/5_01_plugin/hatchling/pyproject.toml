@@ -1,10 +1,11 @@
 [build-system]
-requires = ["scikit-build-core[hatchling]"]
+requires = ["scikit-build-core[hatchling]>=1"]
 build-backend = "hatchling.build"
 
 [project]
 name = "hatchling_example"
 version = "0.1.0"
+requires-python = ">=3.14"
 
 [tool.hatch.build.targets.wheel.hooks.scikit-build]
 cmake.source-dir = "cpp"

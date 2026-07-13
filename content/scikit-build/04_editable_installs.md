@@ -92,7 +92,7 @@ Providing a persistent `build-dir` allows to manually `rebuild()` and with the `
 :filename: pyproject.toml
 
 [build-system]
-requires = ["scikit-build-core"]
+requires = ["scikit-build-core>=1"]
 build-backend = "scikit_build_core.build"
 
 [project]

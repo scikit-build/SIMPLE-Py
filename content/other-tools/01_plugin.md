@@ -28,7 +28,7 @@ put `scikit-build-core[hatchling]` in your
 :filename: pyproject.toml
 
 [build-system]
-requires = ["scikit-build-core[hatchling]"]
+requires = ["scikit-build-core[hatchling]>=1"]
 build-backend = "hatchling.build"
 
 [project]
@@ -116,7 +116,7 @@ and `ninja` and config-settings, so it's recommended if you can:
 :filename: pyproject.toml
 
 [build-system]
-requires = ["scikit-build-core[setuptools]"]
+requires = ["scikit-build-core[setuptools]>=1"]
 build-backend = "scikit_build_core.setuptools.build_meta"
 ```
 

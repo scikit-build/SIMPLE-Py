@@ -31,7 +31,7 @@ _class: lead
 # Example: `pyproject.toml`
 ```toml
 [build-system]
-requires = ["scikit-build-core"]
+requires = ["scikit-build-core>=1"]
 build-backend = "scikit_build_core.build"
 
 [project]

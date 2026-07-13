@@ -20,3 +20,6 @@ CLAUDE.md
 .venv/
 __pycache__/
 *.pyc
+
+# Build artifacts from `uv build`
+dist/

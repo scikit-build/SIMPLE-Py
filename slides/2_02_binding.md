@@ -333,8 +333,8 @@ uv run sample.py
 
 ## Summary
 
-- **pybind11 / nanobind** = header-only C++ binding, no new language, grown one
-  `.def` at a time
+- **pybind11 / nanobind** = C++ binding with no external dependencies, no new
+  language, grown one `.def` at a time
 - Bind **only what you use** — no need to wrap the whole library
 - **nanobind** mirrors pybind11 but compiles faster and ships smaller binaries;
   STL casters are opt-in, trampolines and factory ctors differ slightly
