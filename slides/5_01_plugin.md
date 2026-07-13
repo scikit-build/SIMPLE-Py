@@ -63,10 +63,10 @@ version = "0.1.0"
 - Configure in `tool.hatch.build.targets.wheel.hooks.scikit-build`, the
   usual `tool.scikit-build` table, or environment variables
 - Hatchling owns its part of the build, so a few features don't apply:
-  - `wheel.cmake` must stay on — no pure-Python (`platlib = false`) build
-  - Building CMake during the SDist step isn't supported
-  - `generate` / `metadata` are handled by hatchling's own plugins
-  - No config-settings (`-C...`) — hatchling doesn't pass them to plugins
+  * `wheel.cmake` must stay on — no pure-Python (`platlib = false`) build
+  * Building CMake during the SDist step isn't supported
+  * `generate` / `metadata` are handled by hatchling's own plugins
+  * No config-settings (`-C...`) — hatchling doesn't pass them to plugins
 - Inside `CMakeLists.txt`, `${SKBUILD_HATCHLING}` holds the hatchling
   version
 
@@ -175,9 +175,9 @@ Everything else configures through `[tool.scikit-build]` as normal.
 # Setuptools: caveats
 
 - Setuptools owns the SDist and editable machinery:
-  - The SDist file list comes from setuptools — only
+  * The SDist file list comes from setuptools — only
     `sdist.inclusion-mode = "explicit"` is supported
-  - Editable installs (`pip install -e .`) require
+  * Editable installs (`pip install -e .`) require
     `editable.mode = "inplace"`, which writes build artifacts into
     your source tree
 - Config-settings (`-C cmake.build-type=Debug`) work through the
