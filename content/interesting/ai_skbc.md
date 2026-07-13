@@ -32,7 +32,7 @@ A single prompt, run over the whole project:
 
 On scikit-build-core --- a codebase written from scratch by its maintainer, with
 high test coverage --- one sweep found **15 bugs, 4 of them serious**
-([#1317](https://github.com/scikit-build/scikit-build-core/pull/1317)). Across
+([#1317](https://github.com/scikit-build/scikit-build-core/issues/1317)). Across
 30+ projects reviewed the same way, that's roughly 400 bugs plus as many
 performance and cleanup fixes, with a near-100% merge rate on the resulting PRs.
 

@@ -206,9 +206,10 @@ Combine install + run — `uvx`:
 uvx cowsay
 ```
 
-Makes a venv, downloads the app, runs it. Recreates if over a week old.
+Makes a venv, downloads the app, runs it. Cached and reused; add `@latest` or
+`--refresh` to update.
 
-**All of PyPI at your fingertips** — no need to remember to update!
+**All of PyPI at your fingertips** — `uvx pkg@latest` for the newest release.
 
 ---
 

@@ -14,8 +14,8 @@ _class: lead
 
 ## Why pybind11 / nanobind?
 
-Both are header-only C++ binding libraries — you write real (advanced) C++, not a
-new language:
+Both are C++ binding libraries with no external dependencies — you write real
+(advanced) C++, not a new language:
 
 - No dependencies, no pre-process step
 - Easy to start; built up one `.def(...)` at a time
@@ -191,7 +191,7 @@ public:
   using FCNBase::FCNBase;
   double operator()(
       const std::vector<double> &v) const override {
-    PYBIND11_OVERLOAD_PURE_NAME(
+    PYBIND11_OVERRIDE_PURE_NAME(
       double, FCNBase, "__call__", operator(), v);
   }
 };
@@ -217,7 +217,7 @@ public:
 </div>
 </div>
 
-`*_OVERLOAD/OVERRIDE_PURE_NAME` maps C++'s `operator()` to Python's `__call__`.
+`*_OVERRIDE_PURE_NAME` maps C++'s `operator()` to Python's `__call__`.
 The STL header (`<pybind11/stl.h>` / `<nanobind/stl/vector.h>`) gives
 `std::vector<double>` ↔ list for free.
 

@@ -89,7 +89,7 @@ deactivate
 > [!WARNING]
 > Some applications might require the environment be set to work. It's rare, but keep that in mind if you use the direct syntax. Things that use `sys.executable` work correctly.
 
-The `.` at the start (most shells support `source` as well) allows the activation script to set environment variables, something a normal application could not do. It sets `PATH` (and `VIRTUALENV`, but that is informational) so things inside the virtual environment's bin are at the beginning of the PATH.
+The `.` at the start (most shells support `source` as well) allows the activation script to set environment variables, something a normal application could not do. It sets `PATH` (and `VIRTUAL_ENV`, but that is informational) so things inside the virtual environment's bin are at the beginning of the PATH.
 
 > [!NOTE]
 > Conda environments: the `base` environment has many of the same problems. One environment per project is best.
@@ -287,11 +287,11 @@ uvx cowsay
 ```
 
 Will make a venv, download the app, then run a command with the same name in
-the venv. If you run it again, it will recreate the venv if it's over a week
-old.
+the venv. The environment is content-addressed and cached, so running it again
+reuses it. To pull in updates, use `uvx cowsay@latest` or add `--refresh`.
 
-With this, you basically have all of PyPI at your fingertips, and you don't
-have to remember to update things too!
+With this, you basically have all of PyPI at your fingertips, and grabbing the
+latest version is a single `@latest` away.
 
 #### Single file scripts
 

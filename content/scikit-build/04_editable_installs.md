@@ -103,7 +103,7 @@ version = "0.1.0"
 build-dir = "build"
 ```
 
-```{code} toml
+```{code} python
 :filename: python/example/__init__.py
 
 from importlib.resources import files
@@ -113,7 +113,7 @@ def show_file():
     print(cmake_file.read_text())
 ```
 
-```{code} toml
+```{code} cmake
 :filename: CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.15...4.3)

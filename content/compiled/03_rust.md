@@ -52,7 +52,7 @@ Here is the example's complete `pixi.toml`:
 [workspace]
 channels = ["conda-forge"]
 name = "pyo3-example"
-platforms = ["linux-64", "osx-arm64"]
+platforms = ["win-64", "linux-64", "osx-arm64", "linux-aarch64"]
 version = "0.1.0"
 
 [tasks.develop]

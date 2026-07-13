@@ -73,8 +73,8 @@ If you use the normal ABI, you have to have one wheel per
 supported Python, per platform:
 
 ```text
-pyzmq-27.1.0-cp314-cp314t-macosx_10_15_universal2.whl
-|___| |____| |___| |____| |_____________________|
+pyzmq-27.1.0-cp314-cp314-macosx_10_15_universal2.whl
+|___| |____| |___| |___| |_____________________|
   |      |     |     |              |
  name  version |     |           platform
             python   |

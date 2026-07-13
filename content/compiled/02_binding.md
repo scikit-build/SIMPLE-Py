@@ -29,7 +29,7 @@ Other choices include:
 Before we tackle a real library, let's see the binding patterns on a couple of
 toy classes.
 
-pybind11 is similar to Boost::Python, but much easier to build: it's pure C++11
+pybind11 is similar to Boost::Python, but much easier to build: it's pure C++17
 with no dependencies, no preprocessing step, and no new language to learn. It's
 used in projects like SciPy, PyTorch, boost-histogram, and GooFit (including for
 CUDA). The main downside is that it's a little verbose -- but that verbosity buys
@@ -267,7 +267,7 @@ The FCN is an abstract base class in C++. To let Python subclass it, we use a
 
 ::::
 
-`PYBIND11_OVERLOAD_PURE_NAME` maps C++'s `operator()` to Python's `__call__`;
+`PYBIND11_OVERRIDE_PURE_NAME` maps C++'s `operator()` to Python's `__call__`;
 nanobind's equivalent is `NB_OVERRIDE_PURE_NAME`, after declaring the trampoline
 with `NB_TRAMPOLINE`. Including `<pybind11/stl.h>` -- or, for nanobind, the
 per-type `<nanobind/stl/vector.h>` -- gives us automatic `std::vector<double>` ↔

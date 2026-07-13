@@ -49,7 +49,7 @@ One prompt, run over the whole project:
 > modernizations
 
 - scikit-build-core: **15 bugs, 4 serious**
-  ([#1317](https://github.com/scikit-build/scikit-build-core/pull/1317)) — on
+  ([#1317](https://github.com/scikit-build/scikit-build-core/issues/1317)) — on
   a from-scratch codebase with high test coverage
 - 30+ projects reviewed this way: **~400 bugs** + as many perf/cleanup fixes
 - Near-**100% merge rate** on the resulting PRs

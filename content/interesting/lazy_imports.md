@@ -14,7 +14,7 @@ attempt at implicit laziness, this one is explicit and opt-in --- libraries mark
 which imports are safe to defer.
 
 :::{note}
-Python 3.15 is still in alpha, but you can try lazy imports today:
+Python 3.15 is still in beta, but you can try lazy imports today:
 `uv python install 3.15` fetches it on every major platform, and
 `uv run --python 3.15 ...` runs against it.
 :::
@@ -113,9 +113,12 @@ except ModuleNotFoundError:
     ...
 ```
 
-Make this lazy and the `ModuleNotFoundError` moves to the first _use_ of numpy,
-which is not what you want. The semi-lazy alternative checks for the module
-without importing it:
+Python won't let you make this lazy by accident: PEP 810 makes a `lazy import`
+inside a `try` block a `SyntaxError`, and the module-level `__lazy_modules__`
+opt-in skips any import that lives in a `try`. The trap --- where the
+`ModuleNotFoundError` moves to the first _use_ of numpy --- only appears if you
+drop the guard (or hide it behind `contextlib.suppress`), which is not what you
+want. The semi-lazy alternative checks for the module without importing it:
 
 ```python
 import importlib.util

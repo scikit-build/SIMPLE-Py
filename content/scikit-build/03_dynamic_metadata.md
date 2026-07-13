@@ -320,7 +320,7 @@ replacement = "[#\\1](https://github.com/org/repo/issues/\\1)"
 The `tool.dynamic-metadata` are processed in the order they appear in `pyproject.toml`.
 If a provider expects a dynamic field to have been resolved, make sure you order them appropriately.
 
-``` toml
+```{code} toml
 :filename: pyproject.toml
 :emphasize-lines: 5-11
 :linenos:

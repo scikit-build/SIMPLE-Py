@@ -81,7 +81,7 @@ lazy import numpy
 - Run `--help`, never touch `numpy` → it's **never imported**
 
 ```bash
-uv python install 3.15   # alpha, but one command away
+uv python install 3.15   # beta, but one command away
 ```
 
 ---

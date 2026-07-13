@@ -230,27 +230,27 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
 
 3. Create the package recipe
 
-    * If the package exists on PyPI already use Pixi and `grayskull` to [generate the recipe](https://github.com/conda-forge/staged-recipes#generating-recipes-with-grayskull)
+   * If the package exists on PyPI already use Pixi and `grayskull` to [generate the recipe](https://github.com/conda-forge/staged-recipes#generating-recipes-with-grayskull)
 
-    ```text
-    pixi run pypi <PyPI package name>
-    ```
+     ```text
+     pixi run pypi <PyPI package name>
+     ```
 
-   Example:
+     Example:
 
-    ```text
-    pixi run pypi boost-histogram
-    ```
+     ```text
+     pixi run pypi boost-histogram
+     ```
 
-   This will produce the recipe at `./recipes/<PyPI package name>/`.
+     This will produce the recipe at `./recipes/<PyPI package name>/`.
 
-    * If the package is not already on PyPI, copy the example `rattler-build` ("v1") recipe into a directory named for your package (replacing `example_package` with your unique package name)
+   * If the package is not already on PyPI, copy the example `rattler-build` ("v1") recipe into a directory named for your package (replacing `example_package` with your unique package name)
 
-    ```text
-    cp -R ./recipes/example-v1 ./recipes/example_package
-    ```
+     ```text
+     cp -R ./recipes/example-v1 ./recipes/example_package
+     ```
 
-   and then edit the package's `recipe.yaml` to meet your package needs following the hints in the comments, in the `README.md`, and the [`rattler-build` docs/tutorials](https://rattler-build.prefix.dev/latest/tutorials/python/).
+     and then edit the package's `recipe.yaml` to meet your package needs following the hints in the comments, in the `README.md`, and the [`rattler-build` docs/tutorials](https://rattler-build.prefix.dev/latest/tutorials/python/).
 
 4. Once you have your recipe ready, stage and commit it to Git, and then lint the recipe
 

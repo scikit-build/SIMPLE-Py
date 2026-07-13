@@ -44,9 +44,11 @@ The current `if.*` conditionals available are:
 - `scikit-build-version` (version): scikit-build-core version currently used
 - `python-version` (version): the builder's python version
 - `system-cmake` (version): if any suitable CMake is available on the system
-- `implementation-version` (version): `sys.implementation.name`
-- `platform-system`, `platform-machine`, `platform-node`, `implementation-name` (regex):
-  equivalent `sys.*` variable
+- `implementation-version` (version): `sys.implementation.version`
+- `platform-system` (regex): `sys.platform`
+- `platform-machine` (regex): `platform.machine()`
+- `platform-node` (regex): `platform.node()`
+- `implementation-name` (regex): `sys.implementation.name`
 - `abi-flags` (regex): abi flags such as `t` for free-threading
 - `state` (regex): current build state, one of `sdist`, `wheel`, `editable`, `metadata_wheel`, `metadata_editable`
 - `env.*` (regex or bool): environment variables

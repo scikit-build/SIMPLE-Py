@@ -111,7 +111,7 @@ $ uv run python
 ```
 
 :::{exercise} Build the collatz package
-:label: pkg-build
+:label: compiled-pkg-build
 
 Put the three files above (`collatz.cpp`, `pyproject.toml`, `CMakeLists.txt`)
 in an empty directory, then get a working import.
@@ -122,7 +122,7 @@ in an empty directory, then get a working import.
 
 :::
 
-:::{solution} pkg-build
+:::{solution} compiled-pkg-build
 :class: dropdown
 
 ```console

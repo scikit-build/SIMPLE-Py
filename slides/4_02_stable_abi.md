@@ -65,7 +65,7 @@ wheel.py-api = "py3"
 ## Standard wheels: `cp314-cp314`
 
 ```text
-pyzmq-27.1.0-cp314-cp314t-macosx_10_15_universal2.whl
+pyzmq-27.1.0-cp314-cp314-macosx_10_15_universal2.whl
 ```
 
 The full CPython API means one wheel per Python **per platform**.
