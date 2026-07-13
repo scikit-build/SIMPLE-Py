@@ -1,15 +1,18 @@
 [build-system]
-requires = ["scikit-build-core[setuptools]"]
+requires = ["scikit-build-core[setuptools]>=1"]
 build-backend = "scikit_build_core.setuptools.build_meta"
 
 [project]
 name = "setuptools_example"
 version = "0.1.0"
+requires-python = ">=3.14"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.scikit-build]
 cmake.source-dir = "."
+sdist.inclusion-mode = "explicit"
+sdist.include = ["**.c"]
 # Required by the setuptools plugin for `pip install -e .` / `uv run`
 editable.mode = "inplace"

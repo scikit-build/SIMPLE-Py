@@ -15,9 +15,11 @@ Let's use a trivial pybind11 extension. Name the source file `collatz.cpp`:
 
 ```c++
 #include <pybind11/pybind11.h>
+#include <stdexcept>
 
 // Even -> n/2, odd -> 3n+1. Conjectured to always terminate.
 int collatz_steps(long long n) {
+  if (n < 1) throw std::domain_error("n must be >= 1");
   int steps = 0;
   while (n != 1) {
     n = (n % 2 == 0) ? n / 2 : 3 * n + 1;
@@ -35,7 +37,8 @@ It's a tight integer loop, something that's fast in a compiled language.
 Hopefully you noticed that we set a module name, `collatz`, in
 `PYBIND11_MODULE`. Every CPython module needs to know the name it will be
 compiled to, since that's also how you look up the main entry point into the
-code.
+code. The sequence is only defined for positive integers, so the guard rejects
+`n < 1` — pybind11 maps `std::domain_error` to a Python `ValueError`.
 
 pybind11 isn't the only choice. [nanobind](https://nanobind.readthedocs.io) is
 a lighter, faster tool from the same author, and it also builds with

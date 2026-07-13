@@ -7,6 +7,11 @@ name = "freecomputepi"
 version = "0.0.1"
 requires-python = ">=3.15"
 
+[tool.scikit-build]
+# Build a single stable-ABI free-threaded wheel (cp315-abi3t) that future
+# free-threaded Pythons can load without recompiling
+wheel.py-api = "cp315t"
+
 [tool.cibuildwheel]
 build = "cp315*"
 
