@@ -1,5 +1,7 @@
 # uv vs. Pixi: A showdown
 
+{button}`Slides <https://scikit-build.org/SIMPLE-Py/slides/1_02_tooling>`
+
 As mentioned in [Setting up for development](https://scikit-build.org/SIMPLE-Py/setup/), two tools were mentioned as being important to have installed: `uv` and Pixi.
 What tool should you use and when?
 The answers mainly come down to what are your goals and what are your constraints.
