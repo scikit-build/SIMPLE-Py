@@ -1,0 +1,62 @@
+schema_version: 1
+
+context:
+  version: 0.1.0
+
+package:
+  name: rattler-collatz
+  version: ${{ version }}
+
+source:
+  url: https://github.com/scikit-build/SIMPLE-Py/archive/4e21e097e26365e403cb04f59abb73041cd3710c.tar.gz
+  # pixi global install curl openssl
+  # curl -sL <url> | openssl sha256
+  sha256: 75cf5fd9151a837a523eae5b3aa14094c2ac5cb93a22856237ef0c2700e49705
+
+build:
+  number: 0
+  script:
+    env:
+      CMAKE_GENERATOR: Ninja
+    content:
+      - ${{ PYTHON }} -m pip install examples/5_02_pixi_build/compiled -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - ${{ stdlib("c") }}
+    - ${{ compiler("cxx") }}
+    - cmake
+    - ninja
+    - if: build_platform != host_platform
+      then:
+        - cross-python_${{ host_platform }}
+        - python
+  host:
+    - python
+    - pip
+    - scikit-build-core
+    - pybind11
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - collatz
+      pip_check: true
+
+about:
+  homepage: https://github.com/scikit-build/SIMPLE-Py
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: Single-line summary of the package.
+  description: |
+    One or two paragraphs with more information about the package.
+  repository: https://github.com/scikit-build/SIMPLE-Py
+  documentation: https://github.com/scikit-build/SIMPLE-Py
+
+extra:
+  recipe-maintainers:
+    # GitHub username
+    - henryiii
+    - matthewfeickert
