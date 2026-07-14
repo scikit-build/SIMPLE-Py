@@ -25,6 +25,21 @@ _class: lead
 
 ---
 
+# Build, host, and run requirements
+
+When building conda packages, recipes have the concept of `build`,
+`host`, and `run` requirements:
+
+- `build`: Tools that are used to perform the actual build
+  (e.g. `cmake`, `ninja`)
+- `host`: Packages that supply development requirements for the
+  package you're building, like headers or shared libraries that are
+  linked against (e.g. `boost-devel`)
+- `run`: The requirements of your package to actually run
+  (e.g. your `pyproject.toml` `dependencies`)
+
+---
+
 # Basic packaging: starting point
 
 Take the `rescale` package from _Making a basic package_ and create a

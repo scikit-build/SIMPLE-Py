@@ -9,6 +9,16 @@ To learn the sections and functionalities by example rather than by inspection o
 
 ## Basic Packaging
 
+:::{note} Build, Host, and Run conda requirements
+
+When building conda packages, recipes have the concept of `build`, `host`, and `run` requirements.
+
+* `build`: Tools that are used to perform the actual build (e.g. `cmake`, `ninja`)
+* `host`: Packages that supply development requirements for the package you're building, like headers or shared libraries that are linked against (e.g. `boost-devel`)
+* `run`: The requirements of your package to actually run (e.g. your `pyproject.toml` `dependencies`)
+
+:::
+
 ### Configuring the Pixi manifest
 
 Take the example Python package directory tree from [Making a basic package](https://scikit-build.org/SIMPLE-Py/package/) as a starting foundation.
