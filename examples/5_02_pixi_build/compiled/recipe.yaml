@@ -8,10 +8,10 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/scikit-build/SIMPLE-Py/archive/4e21e097e26365e403cb04f59abb73041cd3710c.tar.gz
+  url: https://github.com/scikit-build/SIMPLE-Py/archive/8c60b848fe7f8d72391d49c2130b27c88aad8dfb.tar.gz
   # pixi global install curl openssl
   # curl -sL <url> | openssl sha256
-  sha256: 75cf5fd9151a837a523eae5b3aa14094c2ac5cb93a22856237ef0c2700e49705
+  sha256: fbd494e7216db678ec5b5f9f7bf7713faaf142690fd46298dcdd2e4d202dcc23
 
 build:
   number: 0
@@ -50,7 +50,7 @@ tests:
 about:
   homepage: https://github.com/scikit-build/SIMPLE-Py
   license: BSD-3-Clause
-  license_file: LICENSE
+  license_file: examples/5_02_pixi_build/compiled/LICENSE
   summary: Single-line summary of the package.
   description: |
     One or two paragraphs with more information about the package.
