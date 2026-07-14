@@ -368,4 +368,21 @@ pixi list -x
 
 ::::
 
+::::{exercise} Build a conda package archive
+:label: publish-collatz
+
+Build `collatz` as a local conda package archive and publish it to a local channel and inspect it.
+
+:::{solution} publish-collatz
+:class: dropdown
+
+```bash
+pixi publish --clean --target-channel /tmp/local-channel
+rattler-build package inspect /tmp/local-channel/collatz*.conda
+```
+
+:::
+
+::::
+
 [^1]: c.f. <https://github.com/prefix-dev/rattler-build/issues/2487>
