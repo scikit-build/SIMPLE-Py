@@ -228,8 +228,6 @@ pixi publish --clean --target-channel https://prefix.dev/<channel-name>
 
 ## Compiled Packaging
 
-### Configuring the Pixi manifest
-
 Take the example Python package directory tree from [A minimal compiled package with scikit-build](https://scikit-build.org/SIMPLE-Py/compiled) as a starting foundation.
 
 ```bash
@@ -356,6 +354,7 @@ Build `collatz` as a conda package and install it into your Pixi workspace envir
 
 ```bash
 pixi install
+pixi run python -c 'from collatz import collatz_steps; print(collatz_steps(27))'
 ```
 
 You can verify with
@@ -378,7 +377,7 @@ Build `collatz` as a local conda package archive and publish it to a local chann
 
 ```bash
 pixi publish --clean --target-channel /tmp/local-channel
-rattler-build package inspect /tmp/local-channel/collatz*.conda
+rattler-build package inspect /tmp/local-channel/linux-64/collatz*.conda
 ```
 
 :::
