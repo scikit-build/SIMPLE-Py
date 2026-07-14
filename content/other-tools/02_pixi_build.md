@@ -351,7 +351,7 @@ cmake.args = ["-GNinja"]
 ```{literalinclude} ../../examples/5_02_pixi_build/compiled/pyproject.toml
 :filename: pyproject.toml
 :linenos:
-:emphasize-lines: 15-17, 19-38
+:emphasize-lines: 12, 14-16, 18-37
 ```
 
 So in just over 20 lines of TOML, we can build a conda package for a Python package with compiled extensions!
