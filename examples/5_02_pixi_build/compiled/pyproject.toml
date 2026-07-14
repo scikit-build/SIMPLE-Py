@@ -10,7 +10,33 @@ version = "0.1.0"
 channels = ["conda-forge"]
 platforms = ["linux-64", "win-64", "osx-arm64", "linux-aarch64"]
 
-[tool.pixi.pypi-dependencies]
-collatz = { path = ".", editable = true }
+preview = ["pixi-build"]
+
+[tool.pixi.dependencies]
+collatz = { path = "." }
+
+[tool.pixi.package]
+name = "collatz"
+version = "0.1.0"
+
+[tool.pixi.package.build.backend]
+name = "pixi-build-python"
+version = "0.*"
+
+[tool.pixi.package.build.config]
+# c.f. https://pixi.prefix.dev/latest/build/backends/pixi-build-python/#compilers
+# c.f. https://pixi.prefix.dev/latest/build/backends/pixi-build-python/#ignore-pypi-mapping
+compilers = ["cxx"]
+ignore-pypi-mapping = false
+
+# TODO: Ensure Ninja
+[tool.pixi.package.build-dependencies]
+cmake = "*"
+ninja = "*"
+
+# Unneeded given package.build.config.ignore-pypi-mapping = false
+# [tool.pixi.package.host-dependencies]
+# scikit-build-core = "*"
+# pybind11 = "*"
 
 [tool.pixi.tasks]
