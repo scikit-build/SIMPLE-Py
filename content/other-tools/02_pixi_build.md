@@ -384,6 +384,41 @@ rattler-build package inspect /tmp/local-channel/linux-64/collatz*.conda
 
 ::::
 
+::::{exercise} Install collatz as a conda package from source
+:label: conda-source-collatz
+
+A full example is available at <https://github.com/scikit-build/SIMPLE-Py/tree/main/examples/5_02_pixi_build/compiled>.
+Add `collatz` as a source dependency to a Pixi workspace and install it as a conda package.
+
+:::{solution} conda-source-collatz
+:class: dropdown
+
+```bash
+pixi init git-source-pixi-build && cd git-source-pixi-build
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "git-source-pixi-build"
+platforms = ["linux-64"]
+version = "0.1.0"
+preview = ["pixi-build"]
+
+[tasks]
+
+[dependencies]
+
+[dependencies.collatz]
+git = "https://github.com/scikit-build/SIMPLE-Py"
+branch = "main"
+subdirectory = "examples/5_02_pixi_build/compiled"
+```
+
+:::
+
+::::
+
 ::::{exercise} Install a conda package from a new channel
 :label: prefix-channel-collatz
 
