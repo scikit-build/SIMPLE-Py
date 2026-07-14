@@ -159,10 +159,10 @@ rescale                                          conda  .
 
 ### Building a conda package
 
-We can use [`pixi publish`](https://pixi.prefix.dev/latest/reference/cli/pixi/publish/) to build the package into a conda package and either publish it to a (`--target-channel`) conda channel or copies the artifact into a (`--target-dir`) local directory &mdash; which by default is the current working directory (`.`).
+We can use [`pixi publish`](https://pixi.prefix.dev/latest/reference/cli/pixi/publish/) to build the package into a conda package and either publish it to a (`--target-channel`) conda channel or copy the artifact into a (`--target-dir`) local directory.
 
 ```text
-pixi publish --clean
+pixi publish --clean --target-dir .
 ```
 
 ```text
