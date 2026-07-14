@@ -19,11 +19,13 @@ build:
     env:
       CMAKE_GENERATOR: Ninja
     content:
-      - ${{ PYTHON }} -m pip install examples/5_02_pixi_build/compiled -vv --no-deps --no-build-isolation
+      - cd examples/5_02_pixi_build/compiled
+      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
-    - ${{ stdlib("c") }}
+    # This is provided by conda-forge and so needs to be commented out for now.
+    # - ${{ stdlib("c") }}
     - ${{ compiler("cxx") }}
     - cmake
     - ninja

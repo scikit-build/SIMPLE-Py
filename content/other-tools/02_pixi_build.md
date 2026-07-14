@@ -228,7 +228,7 @@ pixi publish --clean --target-channel https://prefix.dev/<channel-name>
 
 ## Compiled Packaging
 
-Take the example Python package directory tree from [A minimal compiled package with scikit-build](https://scikit-build.org/SIMPLE-Py/compiled) as a starting foundation.
+Take the example Python package directory tree from the [A minimal compiled package with scikit-build](https://scikit-build.org/SIMPLE-Py/compiled) section as a starting foundation.
 
 ```bash
 cp -R ./examples/2_01_package/collatz /tmp/compiled

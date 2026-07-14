@@ -297,3 +297,30 @@ To get a conda recipe on conda-forge you need to submit it for build checks and 
 
 When in doubt, just ask!
 The [conda-forge Zulip server](https://conda-forge.zulipchat.com/) is the best way to get responses from the community and the conda-forge/core team, but also make sure to [check out the maintainer knowledge base in the documentation](https://conda-forge.org/docs/maintainer/knowledge_base/) first.
+
+## rattler-build recipe build example
+
+Here is an valid `rattler-build` recipe for the `collatz` example from the [A minimal compiled package with scikit-build](https://scikit-build.org/SIMPLE-Py/compiled) section
+
+```{literalinclude} ../../examples/5_02_pixi_build/compiled/recipe.yaml
+:filename: recipe.yaml
+:linenos:
+```
+
+::::{exercise} Build the `rattler-build` recipe
+:label: rattler-build-collatz
+
+Build the recipe file into a conda package with `rattler-build` and then inspect the package.
+
+:::{solution} rattler-build-collatz
+:class: dropdown
+
+```bash
+pixi global install rattler-build
+rattler-build build --recipe .
+rattler-build package inspect ./output/linux-64/rattler-collatz-*.conda
+```
+
+:::
+
+::::
