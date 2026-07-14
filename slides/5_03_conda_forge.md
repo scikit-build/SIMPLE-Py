@@ -262,3 +262,91 @@ requirements:
 - Check the
   [maintainer knowledge base](https://conda-forge.org/docs/maintainer/knowledge_base/)
   first
+
+---
+
+# A full `rattler-build` recipe: `collatz` (1/2)
+
+<div class="columns">
+<div>
+
+```yaml
+package:
+  name: rattler-collatz
+  version: ${{ version }}
+
+source:
+  url: https://github.com/scikit-build/...
+  sha256: fbd494e7216db678...
+```
+
+</div>
+<div>
+
+```yaml
+build:
+  number: 0
+  script:
+    env:
+      CMAKE_GENERATOR: Ninja
+    content:
+      - cd examples/5_02_pixi_build/compiled
+      - >-
+        ${{ PYTHON }} -m pip install .
+        -vv --no-deps --no-build-isolation
+```
+
+</div>
+</div>
+
+---
+
+# A full `rattler-build` recipe: `collatz` (2/2)
+
+<div class="columns">
+<div>
+
+```yaml
+requirements:
+  build:
+    - ${{ compiler("cxx") }}
+    - cmake
+    - ninja
+    - if: build_platform != host_platform
+      then:
+        - cross-python_${{ host_platform }}
+        - python
+  host:
+    - python
+    - pip
+    - scikit-build-core
+    - pybind11
+  run:
+    - python
+```
+
+</div>
+<div>
+
+```yaml
+tests:
+  - python:
+      imports:
+        - collatz
+      pip_check: true
+```
+
+Plus the usual `about` and `extra`
+sections
+
+</div>
+</div>
+
+---
+
+# Exercise: build the `rattler-build` recipe
+
+Using
+[the full recipe for `collatz`](https://github.com/scikit-build/SIMPLE-Py/blob/main/examples/5_02_pixi_build/compiled/recipe.yaml),
+build the recipe file into a conda package with `rattler-build` and
+then inspect the package.
