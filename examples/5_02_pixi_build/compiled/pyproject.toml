@@ -1,0 +1,16 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "collatz"
+version = "0.1.0"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "win-64", "osx-arm64", "linux-aarch64"]
+
+[tool.pixi.pypi-dependencies]
+collatz = { path = ".", editable = true }
+
+[tool.pixi.tasks]

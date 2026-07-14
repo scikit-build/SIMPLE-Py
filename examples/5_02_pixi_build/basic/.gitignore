@@ -224,3 +224,4 @@ src/rescale/_version.py
 .pixi/*
 !.pixi/config.toml
 pixi.lock
+*.conda
