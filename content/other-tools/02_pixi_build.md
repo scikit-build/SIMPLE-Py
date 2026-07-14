@@ -384,4 +384,30 @@ rattler-build package inspect /tmp/local-channel/linux-64/collatz*.conda
 
 ::::
 
+::::{exercise} Install a conda package from a new channel
+:label: prefix-channel-collatz
+
+`collatz` was published on the conda channel <https://prefix.dev/matthewfeickert>.
+
+```bash
+pixi auth login --token <token> prefix.dev
+pixi publish --clean --target-channel https://prefix.dev/matthewfeickert
+```
+
+Create a new workspace and install from that channel.
+
+:::{solution} prefix-channel-collatz
+:class: dropdown
+
+```bash
+pixi init prefix-channel-example && cd prefix-channel-example
+pixi workspace channel add https://prefix.dev/matthewfeickert
+pixi add collatz
+pixi list -x
+```
+
+:::
+
+::::
+
 [^1]: c.f. <https://github.com/prefix-dev/rattler-build/issues/2487>
