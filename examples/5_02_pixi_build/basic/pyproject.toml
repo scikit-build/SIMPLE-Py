@@ -37,14 +37,18 @@ preview = ["pixi-build"]
 [tool.pixi.dependencies]
 rescale = { path = "." }
 
-[package.build.backend]
+[tool.pixi.package]
+name = "rescale"
+version = "0.1.0"
+
+[tool.pixi.package.build.backend]
 name = "pixi-build-python"
 version = "0.*"
 
-[package.host-dependencies]
+[tool.pixi.package.host-dependencies]
 hatchling = "*"
 
-[package.run-dependencies]
+[tool.pixi.package.run-dependencies]
 numpy = ">=1.24"
 
 [tool.pixi.environments]

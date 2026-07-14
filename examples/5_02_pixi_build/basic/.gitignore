@@ -219,6 +219,8 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 src/rescale/_version.py
+
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+pixi.lock
