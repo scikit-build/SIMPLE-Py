@@ -15,9 +15,132 @@ mv /tmp/basic/original_pyproject.toml /tmp/basic/pyproject.toml
 cd /tmp/basic
 ```
 
+Next, create a Pixi manifest as a `pyproject.toml` `[tool.pixi]` table.
+
+```bash
+pixi init --format pyproject
+```
+
+which automatically creates environments from the optional dependencies and dependency groups.
+
+```text
+✔ Added package 'rescale' as an editable dependency.
+✔ Added environment 'dev' from optional dependencies or dependency groups.
+```
+
+```{code} toml
+:filename: pyproject.toml
+:linenos:
+:emphasize-lines: 32-43
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rescale"
+version = "0.1.0"
+description = "Rescale NumPy arrays to span [0, 1]."
+readme = "README.md"
+authors = [{ name = "My Name", email = "me@email.com" }]
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+keywords = ["arrays", "normalization"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering",
+  "Private :: Do Not Upload",
+]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.urls]
+Homepage = "https://github.com/me/rescale"
+"Bug Tracker" = "https://github.com/me/rescale/issues"
+Changelog = "https://github.com/me/rescale/releases"
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.pypi-dependencies]
+rescale = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+
+[tool.pixi.tasks]
+```
+
+Now, enable the Pixi Build preview feature
+
+```toml
+preview = ["pixi-build"]
+```
+
+and add the platforms you might want to support (like normal)
+
+```bash
+pixi workspace platform add linux-64 osx-64 win-64 osx-arm64 linux-aarch64
+```
+
+change `rescale` from a Python package dependency to a conda package dependency
+
+```diff
+-[tool.pixi.pypi-dependencies]
+-rescale = { path = ".", editable = true }
++[tool.pixi.dependencies]
++rescale = { path = "." }
+```
+
+add a `[package]` TOML table
+
+```toml
+[tool.pixi.package]
+name = "rescale"
+version = "0.1.0"
+```
+
+add the Python build backend to the `[package.build.backend]` table
+
+```toml
+[tool.pixi.package.build.backend]
+name = "pixi-build-python"
+version = "0.*"
+```
+
+add the `host` and `run` dependencies package tables
+
+```toml
+[tool.pixi.package.host-dependencies]
+hatchling = "*"
+
+[tool.pixi.package.run-dependencies]
+numpy = ">=1.24"
+```
+
+and then add a `tests` task to the `dev` feature
+
+```bash
+pixi task add --feature dev tests "pytest tests"
+```
+
+resulting in the final `pyproject.toml` containing all the information for both a Python and conda package of `rescale`.
+
+```{literalinclude} ../../examples/5_02_pixi_build/basic/pyproject.toml
+:filename: pyproject.toml
+:linenos:
+:emphasize-lines: 34-52,58-59
+```
+
 ### Building (and installing) the package
 
-Run any Pixi command that requires an environment to be installed (such as `pixi install`, `pixi run`, `pixi shell`).
+To build and install the conda package into your environment run any Pixi command that requires an environment to be installed (such as `pixi install`, `pixi run`, `pixi shell`).
 
 ```bash
 pixi run tests
