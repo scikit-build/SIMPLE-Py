@@ -344,4 +344,28 @@ cmake.args = ["-GNinja"]
 :emphasize-lines: 15-17, 19-38
 ```
 
+So in just over 20 lines of TOML, we can build a conda package for a Python package with compiled extensions!
+
+::::{exercise} Build and install the conda package
+:label: build-and-install-collatz
+
+Build `collatz` as a conda package and install it into your Pixi workspace environment.
+
+:::{solution} build-and-install-collatz
+:class: dropdown
+
+```bash
+pixi install
+```
+
+You can verify with
+
+```bash
+pixi list -x
+```
+
+:::
+
+::::
+
 [^1]: c.f. <https://github.com/prefix-dev/rattler-build/issues/2487>
