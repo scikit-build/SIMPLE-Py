@@ -205,3 +205,21 @@ pixi list rescale
 :::
 
 ::::
+
+::::{exercise} Publish to a personal conda channel
+:label: personal-conda-channel
+
+Publish the conda package to a personal prefix.dev conda channel.
+
+:::{solution} personal-conda-channel
+:class: dropdown
+
+If you have a [personal conda channel](https://prefix.dev/channels) on prefix.dev you can publish with
+
+```bash
+pixi publish --clean --target-channel https://prefix.dev/<channel-name>
+```
+
+:::
+
+::::
