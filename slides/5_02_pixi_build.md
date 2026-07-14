@@ -34,7 +34,7 @@ When building conda packages, recipes have the concept of `build`,
   (e.g. `cmake`, `ninja`)
 - `host`: Packages that supply development requirements for the
   package you're building, like headers or shared libraries that are
-  linked against (e.g. `boost-devel`)
+  linked against (e.g. `libboost-devel`)
 - `run`: The requirements of your package to actually run
   (e.g. your `pyproject.toml` `dependencies`)
 
