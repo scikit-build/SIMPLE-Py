@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rescale"
+version = "0.1.0"
+description = "Rescale NumPy arrays to span [0, 1]."
+readme = "README.md"
+authors = [{ name = "My Name", email = "me@email.com" }]
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+keywords = ["arrays", "normalization"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering",
+  "Private :: Do Not Upload",
+]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.urls]
+Homepage = "https://github.com/me/rescale"
+"Bug Tracker" = "https://github.com/me/rescale/issues"
+Changelog = "https://github.com/me/rescale/releases"
+
+[dependency-groups]
+dev = ["pytest"]

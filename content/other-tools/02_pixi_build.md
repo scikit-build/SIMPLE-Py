@@ -7,17 +7,25 @@ To learn the sections and functionalities by example rather than by inspection o
 
 ## Basic Packaging
 
+Take the example Python package directory tree from [Making a basic package](https://scikit-build.org/SIMPLE-Py/package/) as a starting foundation.
+
+```bash
+cp -R ./examples/5_02_pixi_build/basic /tmp/
+mv /tmp/basic/original_pyproject.toml /tmp/basic/pyproject.toml
+cd /tmp/basic
+```
+
 ### Building (and installing) the package
 
 Run any Pixi command that requires an environment to be installed (such as `pixi install`, `pixi run`, `pixi shell`).
 
-```text
+```bash
 pixi run tests
 ```
 
 You can see the build logs from Pixi Build and see that `rescale` is installed as a conda package
 
-```text
+```console
 $ pixi list -x
 Installed for: linux-64
 Name     Version  Build                    Size  Kind   Source
