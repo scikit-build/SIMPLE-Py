@@ -41,9 +41,20 @@ You can now rebuild the CMake project on demand with
 :linenos:
 :emphasize-lines: 2
 
+>>> import importlib
+>>> importlib.util.find_spec("foo").loader.rebuild()
 >>> import foo
->>> foo.__loader__.rebuild()
 ```
+
+:::{note}
+
+If you haven't seen it yet, `find_spec` is a common pattern when you want to
+ask if something can be imported without triggering the import. You need the outer
+module, as inner modules must import the outer module first.
+
+:::
+
+(You can also do `foo.__loader__.rebuild()`, but foo is already loaded, so if it's not lazy, it's too late, symbols are already loaded, it will work on restart only.)
 
 ## Scikit-build-core pitfalls
 
@@ -130,11 +141,18 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/file.txt DESTINATION ${SKBUILD_PROJECT
 >>> import example
 >>> example.show_file()
 Hello, world!
->>> example.__loader__.rebuild()
+```
+
+Edit file.
+
+```{code} python
+>>> import importlib
+>>> importlib.util.find_spec("example").loader.rebuild()
 Running cmake --build & --install in /home/cle/tmp/simple-py/build
 [1/1] cd build && /usr/bin/cmake -E copy source.txt build/file.txt
 -- Install configuration: "Release"
 -- Installing: .venv/lib64/python3.14/site-packages/example/file.txt
+>>> import example
 >>> example.show_file()
 Off to the races!
 ```

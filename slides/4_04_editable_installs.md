@@ -24,7 +24,7 @@ _class: lead
 
 - Edit C/C++/CMake source files
 - Changes show up 🙂
-  * Since 1.0: just call `<pkg>.__loader__.rebuild()` 😉
+  * Since 1.0: just call `loader.rebuild()` 😉
 
 ---
 
@@ -77,14 +77,13 @@ install(FILES
 
 # Example: It works!
 ```pycon
->>> import example
->>> example.show_file()
-Hello, world!
->>> example.__loader__.rebuild()
+>>> import importlib.util
+>>> importlib.util.find_spec("example").loader.rebuild()
 Running cmake --build & --install in /home/cle/tmp/simple-py/build
 [1/1] cd build && /usr/bin/cmake -E copy source.txt build/file.txt
 -- Install configuration: "Release"
 -- Installing: .venv/lib64/python3.14/site-packages/example/file.txt
+>>> import example
 >>> example.show_file()
 Off to the races!
 ```
@@ -159,7 +158,7 @@ FileNotFoundError: [Errno 2] No such file or directory: 'my_lib.so'
 # Tips and pitfalls
 ## 1.0 changes
 
-- `<pkg>.__loader__.rebuild()`: rebuild on demand
+- `importlib.util.find_spec("<pkg>").loader.rebuild()`: rebuild on demand
 - `editable.rebuild-dir`: specify where to install
 - `importlib.resources` should work properly (custom implementation)
 
