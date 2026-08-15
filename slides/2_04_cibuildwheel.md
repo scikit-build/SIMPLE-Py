@@ -202,7 +202,7 @@ upload_all:
         pattern: cibw-*
         path: dist
         merge-multiple: true
-    - uses: actions/attest-build-provenance@v4
+    - uses: actions/attest@v4
       with:
         subject-path: "dist/*"
     - uses: pypa/gh-action-pypi-publish@release/v1
