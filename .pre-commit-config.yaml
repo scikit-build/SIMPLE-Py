@@ -17,7 +17,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: cb8c523fd4835aba42af70f4cad5568db4df0b6c # frozen: v0.16.0
+    rev: aab412d509121cb5f7533134b7e67f9fab59c682 # frozen: v0.16.4
     hooks:
       - id: ruff-format
         exclude: ^content/week01/cleanup_bessel\.ipynb$
@@ -34,7 +34,7 @@ repos:
       - id: nbstripout
 
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: "75cad3ecfe02b58e8165d3ac08d117bee207ed3d" # frozen: v0.2.43
+    rev: "00c9d9edd7a5d4cb8241c158888c015d71873889" # frozen: v0.2.60
     hooks:
       - id: rumdl-fmt
 
@@ -65,7 +65,7 @@ repos:
       - id: blocklint
 
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: 067260dc5fe6ea86b7551bfd6f8b3ba4e6c93129 # frozen: v1.28.0
+    rev: 451b56af716f9f0d0c2b816503a3fd0cf8b036fa # frozen: v1.29.0
     hooks:
       - id: zizmor
         files: "^\\.github"
