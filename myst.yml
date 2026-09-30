@@ -45,6 +45,8 @@ project:
 
 site:
   template: book-theme
+  parts:
+    footer: footer.md
   options:
     logo_text: SIMPLE-Py
     # Vendored so the build never fetches mystmd.org's default favicon, which
